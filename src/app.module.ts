@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
-import { DatabaseMongoModule } from './database-mongo/database-mongo.module';
-// import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
+// import { DatabaseMongoModule } from './database-mongo/database-mongo.module';
+import { HealthchecksModule } from './healthchecks/healthchecks.module';
 
 @Module({
-  imports: [DatabaseMongoModule],
+  imports: [
+    // DatabaseMongoModule,
+    ConfigModule.forRoot(),
+    HealthchecksModule,
+  ],
   controllers: [],
   providers: [],
 })
