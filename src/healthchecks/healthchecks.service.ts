@@ -14,7 +14,6 @@ export class HealthchecksService {
     return {
       service: false,
       resource: {
-        port: process.env.MONGO_URL,
         MongoDB: !!(this.connection.readyState === 1),
       },
     };
