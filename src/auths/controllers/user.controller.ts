@@ -12,7 +12,6 @@ export class UserController {
     const model = new CreateUserModel();
     model.mail = dto.mail;
     model.name = dto.name;
-    model.pass = dto.pass;
     model.type = dto.type;
     model.birthDate = dto.birthDate;
 
