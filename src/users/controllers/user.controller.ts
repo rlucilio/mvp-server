@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ChangePassService } from '../services/change-pass.service';
 import { CreateUserService } from '../services/create-user.service';
@@ -17,6 +19,7 @@ import { ChangePassDto } from './dtos/change-pass.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
+import { VerifyFirstAccessDto } from './dtos/verify-first-access';
 
 @Controller('users')
 export class UserController {
@@ -51,7 +54,17 @@ export class UserController {
   }
 
   @Put('/request-change-pass')
-  async requestChangePassword(@Body() dto: RequestChangePassDto) {
+  @HttpCode(HttpStatus.OK)
+  async requestChangePassword(@Query() dto: RequestChangePassDto) {
     await this.requestChangePassService.execute(dto.email);
   }
+
+  @Get('/is-first-login')
+  async verifyFirstLogin(@Query() dto: VerifyFirstAccessDto) {
+    await this.requestChangePassService.execute(dto.email);
+  }
+
+  @Put('/create-pass')
+  @HttpCode(HttpStatus.OK)
+  async createPass() {}
 }

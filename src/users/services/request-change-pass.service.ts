@@ -22,14 +22,13 @@ export class RequestChangePassService {
         bcrypt.hashSync(temporaryPass, saltOrRounds),
       );
 
-      return temporaryPass;
+      this.logger.log('[BEGIN] request change pass');
+      return { result: temporaryPass };
     } catch (error) {
       throw new HttpException(
         'Error in request change pass',
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    this.logger.log('[BEGIN] request change pass');
   }
 }
