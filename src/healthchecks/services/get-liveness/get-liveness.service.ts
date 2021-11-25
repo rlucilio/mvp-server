@@ -3,14 +3,10 @@ import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
 @Injectable()
-export class HealthchecksService {
+export class GetLivenessService {
   constructor(@InjectConnection() private connection: Connection) {}
 
-  ready() {
-    return Date.now();
-  }
-
-  alive() {
+  execute() {
     return {
       service: false,
       resource: {

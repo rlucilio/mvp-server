@@ -1,17 +1,21 @@
 import { Controller, Get } from '@nestjs/common';
-import { HealthchecksService } from './healthchecks.service';
+import { GetReadinessService } from './services/get-liveness/get-readiness.service';
+import { GetLivenessService } from './services/get-liveness/get-liveness.service';
 
 @Controller('healthchecks')
 export class HealthchecksController {
-  constructor(private readonly healthchecksService: HealthchecksService) {}
+  constructor(
+    private readonly getLivenessService: GetReadinessService,
+    private readonly getReadinessService: GetLivenessService,
+  ) {}
 
   @Get('/readiness')
   getReadiness() {
-    return this.healthchecksService.ready();
+    return this.getReadinessService.execute();
   }
 
   @Get('/liveness')
   getLiveness() {
-    return this.healthchecksService.alive();
+    return this.getLivenessService.execute();
   }
 }
