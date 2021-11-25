@@ -17,6 +17,7 @@ import { UserGateway } from './gateways/user.gateway';
 import { CreateUserService } from './services/create-user.service';
 import { LoginUserService } from './services/login-user.service';
 import { ChangePassService } from './services/change-pass.service';
+import { RequestChangePassService } from './services/request-change-pass.service';
 
 @Module({
   controllers: [UserController],
@@ -25,6 +26,7 @@ import { ChangePassService } from './services/change-pass.service';
     UserGateway,
     LoginUserService,
     ChangePassService,
+    RequestChangePassService,
   ],
   imports: [
     MongooseModule.forFeature([

@@ -12,8 +12,10 @@ import { LoginUserService } from '../services/login-user.service';
 import { ChangePassModel } from '../services/models/change-pass.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 import { UserLoginModel } from '../services/models/login-user.model';
+import { RequestChangePassService } from '../services/request-change-pass.service';
 import { ChangePassDto } from './dtos/change-pass.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
 
 @Controller('users')
@@ -22,6 +24,7 @@ export class UserController {
     private readonly createUserService: CreateUserService,
     private readonly loginUserService: LoginUserService,
     private readonly changePassService: ChangePassService,
+    private readonly requestChangePassService: RequestChangePassService,
   ) {}
 
   @Post('/create')
@@ -45,5 +48,10 @@ export class UserController {
     await this.changePassService.execute(
       new ChangePassModel(dto.email, dto.newPass),
     );
+  }
+
+  @Put('/request-change-pass')
+  async requestChangePassword(@Body() dto: RequestChangePassDto) {
+    await this.requestChangePassService.execute(dto.email);
   }
 }

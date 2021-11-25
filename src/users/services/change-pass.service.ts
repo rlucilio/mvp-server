@@ -17,7 +17,7 @@ export class ChangePassService {
       this.logger.log('Try get user by email');
       const user = await this.userGateway.findForEMail(model.email);
 
-      if (model.oldPass === user.pass) {
+      if (bcrypt.compareSync(model.oldPass, user.pass)) {
         await this.userGateway.changePass(
           user._id,
           bcrypt.hashSync(model.newPass, saltOrRounds),
