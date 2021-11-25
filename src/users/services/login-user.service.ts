@@ -16,26 +16,22 @@ export class LoginUserService {
 
     let user: User;
     try {
-      user = await this.userGateway.findForMail(model.mail);
+      this.logger.log('Try get user by email');
+      user = await this.userGateway.findForEMail(model.email);
     } catch (error) {
       throw new HttpException('Login invalid', HttpStatus.BAD_REQUEST);
     }
 
-    if (!model.firstAccess && !model.pass) {
-      throw new HttpException('Pass required', HttpStatus.BAD_REQUEST);
-    }
-
-    if (model.firstAccess && user.state === UserState.pending) {
-      return;
+    if (user.state === UserState.pending) {
+      throw new HttpException('Login invalid', HttpStatus.BAD_REQUEST);
     }
 
     if (
-      !(model.mail === user.mail && bcrypt.compareSync(model.pass, user.pass))
+      !(model.email === user.email && bcrypt.compareSync(model.pass, user.pass))
     ) {
       throw new HttpException('Login invalid', HttpStatus.BAD_REQUEST);
     }
 
-    this.logger.log(user);
     this.logger.log('[END] login user');
   }
 }

@@ -15,7 +15,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsEmail()
-  mail: string;
+  email: string;
 
   @IsNotEmpty()
   @IsIn(['BENEFIT', 'PROVIDER'])

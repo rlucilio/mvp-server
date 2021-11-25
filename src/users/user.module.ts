@@ -16,10 +16,16 @@ import {
 import { UserGateway } from './gateways/user.gateway';
 import { CreateUserService } from './services/create-user.service';
 import { LoginUserService } from './services/login-user.service';
+import { ChangePassService } from './services/change-pass.service';
 
 @Module({
   controllers: [UserController],
-  providers: [CreateUserService, UserGateway, LoginUserService],
+  providers: [
+    CreateUserService,
+    UserGateway,
+    LoginUserService,
+    ChangePassService,
+  ],
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },

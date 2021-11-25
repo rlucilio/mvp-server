@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseMongoModule } from './configs/database-mongo/database-mongo.module';
 import { HealthchecksModule } from './healthchecks/healthchecks.module';
-import { UserModule } from './auths/user.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   imports: [
