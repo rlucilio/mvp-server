@@ -5,6 +5,7 @@ import {
   Benefit,
   BenefitDocument,
 } from 'src/configs/database-mongo/schemas/benefit.schema';
+import { UserState } from 'src/configs/database-mongo/schemas/enums/user-state.enum';
 import {
   Provider,
   ProviderDocument,
@@ -52,8 +53,11 @@ export class UserGateway {
     ).toObject();
   }
 
-  async changePass(id: string, pass: string) {
-    await this.userDocument.findByIdAndUpdate(id, { pass });
+  async changePassAndState(id: string, pass: string, state?: UserState) {
+    await this.userDocument.findByIdAndUpdate(
+      id,
+      state ? { pass, state: state } : { pass },
+    );
   }
 
   private async createUser(model: CreateUserModel) {

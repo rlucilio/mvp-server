@@ -6,5 +6,6 @@ export class CreateUserModel {
     public email: string,
     public type: TypeUser,
     public birthDate: Date,
+    public key: string,
   ) {}
 }

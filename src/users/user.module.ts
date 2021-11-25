@@ -18,6 +18,8 @@ import { CreateUserService } from './services/create-user.service';
 import { LoginUserService } from './services/login-user.service';
 import { ChangePassService } from './services/change-pass.service';
 import { RequestChangePassService } from './services/request-change-pass.service';
+import { VerifyFirstAccessService } from './services/verify-first-access.service';
+import { CreatePassService } from './services/create-pass.service';
 
 @Module({
   controllers: [UserController],
@@ -27,6 +29,8 @@ import { RequestChangePassService } from './services/request-change-pass.service
     LoginUserService,
     ChangePassService,
     RequestChangePassService,
+    VerifyFirstAccessService,
+    CreatePassService,
   ],
   imports: [
     MongooseModule.forFeature([

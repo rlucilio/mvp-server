@@ -19,11 +19,14 @@ export class LoginUserService {
       this.logger.log('Try get user by email');
       user = await this.userGateway.findForEMail(model.email);
     } catch (error) {
-      throw new HttpException('Login invalid', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     if (user.state === UserState.pending) {
-      throw new HttpException('Login invalid', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Login not enabled',
+        HttpStatus.PRECONDITION_FAILED,
+      );
     }
 
     if (

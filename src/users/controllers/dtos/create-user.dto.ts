@@ -23,4 +23,8 @@ export class CreateUserDto {
 
   @IsDateString()
   birthDate: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  key: string;
 }

@@ -14,11 +14,11 @@ export class VerifyFirstAccessService {
       this.logger.log('Try get user by email');
       const user = await this.userGateway.findForEMail(email);
 
-      this.logger.log('[BEGIN] verify first access');
+      this.logger.log('[END] verify first access');
       return { result: user.state === UserState.pending };
     } catch (error) {
       throw new HttpException(
-        'Error in request change pass',
+        'Error in verify first login',
         HttpStatus.BAD_REQUEST,
       );
     }

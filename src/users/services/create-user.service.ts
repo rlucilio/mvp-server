@@ -9,6 +9,9 @@ export class CreateUserService {
 
   async execute(model: CreateUserModel) {
     try {
+      if (model.key !== process.env.KEY_CREATE_USER) {
+        throw new HttpException('Key invalid', HttpStatus.BAD_REQUEST);
+      }
       this.logger.log('[BEGIN] Create user');
 
       if (model.type === 'BENEFIT') {

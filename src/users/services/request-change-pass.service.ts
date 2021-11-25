@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { UserGateway } from '../gateways/user.gateway';
 import * as uuid from 'uuid';
 import * as bcrypt from 'bcrypt';
-import { saltOrRounds } from 'src/shared/consts';
+import { SALT_OR_ROUNDS } from 'src/shared/consts';
 
 @Injectable()
 export class RequestChangePassService {
@@ -17,12 +17,12 @@ export class RequestChangePassService {
       const user = await this.userGateway.findForEMail(email);
 
       const temporaryPass = uuid.v1();
-      await this.userGateway.changePass(
+      await this.userGateway.changePassAndState(
         user._id,
-        bcrypt.hashSync(temporaryPass, saltOrRounds),
+        bcrypt.hashSync(temporaryPass, SALT_OR_ROUNDS),
       );
 
-      this.logger.log('[BEGIN] request change pass');
+      this.logger.log('[END] request change pass');
       return { result: temporaryPass };
     } catch (error) {
       throw new HttpException(
