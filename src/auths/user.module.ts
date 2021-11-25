@@ -15,10 +15,11 @@ import {
 } from 'src/configs/database-mongo/schemas/provider.schema';
 import { UserGateway } from './gateways/user.gateway';
 import { CreateUserService } from './services/create-user.service';
+import { LoginUserService } from './services/login-user.service';
 
 @Module({
   controllers: [UserController],
-  providers: [CreateUserService, UserGateway],
+  providers: [CreateUserService, UserGateway, LoginUserService],
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },

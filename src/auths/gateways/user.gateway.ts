@@ -42,11 +42,20 @@ export class UserGateway {
     return await createdProvider.save();
   }
 
+  async findForMail(mail: string) {
+    return (
+      await this.userDocument
+        .findOne({
+          mail,
+        })
+        .exec()
+    ).toObject();
+  }
+
   private async createUser(model: CreateUserModel) {
     const createdUser = new this.userDocument();
     createdUser.name = model.name;
     createdUser.mail = model.mail;
-    createdUser.pass = model.pass;
     return await createdUser.save();
   }
 }
