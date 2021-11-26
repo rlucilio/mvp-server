@@ -18,7 +18,6 @@ export class LoginUserService {
 
   async execute(model: UserLoginModel) {
     this.logger.log('[BEGIN] login user');
-
     let user: User & { _id: string };
     try {
       this.logger.log('Try get user by email');

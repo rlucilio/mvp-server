@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseMongoModule } from './configs/database-mongo/database-mongo.module';
 import { HealthchecksModule } from './healthchecks/healthchecks.module';
 import { UserModule } from './users/user.module';
+import { EMailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { UserModule } from './users/user.module';
     ConfigModule.forRoot(),
     HealthchecksModule,
     UserModule,
+    EMailModule,
   ],
   controllers: [],
   providers: [],

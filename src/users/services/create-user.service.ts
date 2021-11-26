@@ -1,11 +1,15 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { SendEMailService } from 'src/email/services/send-email.service';
 import { UserGateway } from '../gateways/user.gateway';
 import { CreateUserModel } from './models/create-user.model';
 
 @Injectable()
 export class CreateUserService {
   private readonly logger = new Logger(CreateUserService.name);
-  constructor(private readonly userGateway: UserGateway) {}
+  constructor(
+    private readonly userGateway: UserGateway,
+    private readonly sendEmailService: SendEMailService,
+  ) {}
 
   async execute(model: CreateUserModel) {
     try {
@@ -21,6 +25,13 @@ export class CreateUserService {
         this.logger.log('Create provider');
         await this.userGateway.createProvider(model);
       }
+
+      await this.sendEmailService.execute(
+        model.email,
+        'teste',
+        'confirmation',
+        { name: model.name, url: 'www.google.com.br' },
+      );
 
       this.logger.log('[END] Create user');
     } catch (error) {

@@ -3,11 +3,15 @@ import { UserGateway } from '../gateways/user.gateway';
 import * as uuid from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { SALT_OR_ROUNDS } from 'src/shared/consts';
+import { SendEMailService } from 'src/email/services/send-email.service';
 
 @Injectable()
 export class RequestChangePassService {
   private readonly logger = new Logger(RequestChangePassService.name);
-  constructor(private readonly userGateway: UserGateway) {}
+  constructor(
+    private readonly userGateway: UserGateway,
+    private readonly sendEmailService: SendEMailService,
+  ) {}
 
   async execute(email: string) {
     this.logger.log('[BEGIN] request change pass');
@@ -21,6 +25,11 @@ export class RequestChangePassService {
         user._id,
         bcrypt.hashSync(temporaryPass, SALT_OR_ROUNDS),
       );
+
+      await this.sendEmailService.execute(email, 'teste', 'change-pass', {
+        name: user.name,
+        url: 'www.google.com.br',
+      });
 
       this.logger.log('[END] request change pass');
       return { result: temporaryPass };
