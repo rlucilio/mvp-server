@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class SendEMailService {
+  private readonly logger = new Logger(SendEMailService.name);
   constructor(private readonly mailerService: MailerService) {}
 
   async execute<T>(
@@ -11,12 +12,20 @@ export class SendEMailService {
     template: string,
     objParams?: T,
   ) {
-    await this.mailerService.sendMail({
-      to: email,
-      from: `"MVP novo serviço!" <${process.env.EMAIL_FROM}>`,
-      subject: subject,
-      template: `./${template}`,
-      context: objParams ? objParams : {},
-    });
+    try {
+      this.logger.log('[BEGIN] send email');
+      this.logger.log(`To ${email}, template: ${template}`);
+      await this.mailerService.sendMail({
+        to: email,
+        from: `"MVP novo serviço!" <${process.env.EMAIL_FROM}>`,
+        subject: subject,
+        template: `./${template}`,
+        context: objParams ? objParams : {},
+      });
+    } catch (error) {
+      this.logger.error(error.message);
+      this.logger.log('[End] send email');
+      throw error;
+    }
   }
 }

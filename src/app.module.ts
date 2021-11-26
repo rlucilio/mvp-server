@@ -4,6 +4,7 @@ import { DatabaseMongoModule } from './configs/database-mongo/database-mongo.mod
 import { HealthchecksModule } from './healthchecks/healthchecks.module';
 import { UserModule } from './users/user.module';
 import { EMailModule } from './email/email.module';
+import { WppModule } from './wpp/wpp.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { EMailModule } from './email/email.module';
     HealthchecksModule,
     UserModule,
     EMailModule,
+    WppModule.forRoot(),
   ],
   controllers: [],
   providers: [],
