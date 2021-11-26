@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/configs/database-mongo/schemas/user.schema';
 import { GenerateAccessTokenService } from 'src/auth/services/generate-access-token.service';
 import { GenerateTokenPayloadModel } from 'src/auth/services/models/generate-token-payload.model';
-import { SendEMailService } from 'src/email/services/send-email.service';
 
 @Injectable()
 export class LoginUserService {

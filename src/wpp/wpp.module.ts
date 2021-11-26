@@ -14,14 +14,19 @@ export class WppModule {
       {
         provide: 'CLIENT_WPP',
         useFactory: async () =>
-          await venom
-            .create({
-              session: 'MVP Novo produto',
-              disableWelcome: true,
-              multidevice: false,
-              autoClose: 0,
-            })
-            .catch(console.log),
+          process.env.OS_ENV === 'prd'
+            ? await venom
+                .create({
+                  session: 'MVP Novo produto',
+                  disableWelcome: true,
+                  multidevice: false,
+                  autoClose: 0,
+                  folderNameToken: './tokens',
+                })
+                .catch(console.log)
+            : {
+                sendText: (...args: any[]) => console.log(args),
+              },
       },
       {
         provide: SendWppService,
