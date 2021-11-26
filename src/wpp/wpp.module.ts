@@ -15,7 +15,7 @@ export class WppModule {
         provide: 'CLIENT_WPP',
         useFactory: async () =>
           await venom.create({
-            session: 'session-name',
+            session: 'MVP Novo produto',
             disableWelcome: true,
             multidevice: false,
             autoClose: 0,
