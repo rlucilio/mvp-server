@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/configs/database-mongo/schemas/user.schema';
 import { GenerateAccessTokenService } from 'src/auth/services/generate-access-token.service';
 import { GenerateTokenPayloadModel } from 'src/auth/services/models/generate-token-payload.model';
-import { SendWppService } from 'src/wpp/services/send-wpp.service';
+import { SendEMailService } from 'src/email/services/send-email.service';
 
 @Injectable()
 export class LoginUserService {
@@ -15,14 +15,12 @@ export class LoginUserService {
   constructor(
     private readonly userGateway: UserGateway,
     private readonly generateAccessTokenService: GenerateAccessTokenService,
-    private readonly sendWppService: SendWppService,
   ) {}
 
   async execute(model: UserLoginModel) {
     this.logger.log('[BEGIN] login user');
     let user: User & { _id: string };
     try {
-      await this.sendWppService.sendMessage('11975839627', 'Teste de emoji 🤍');
       this.logger.log('Try get user by email');
       user = await this.userGateway.findForEMail(model.email);
     } catch (error) {
