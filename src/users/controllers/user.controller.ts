@@ -58,7 +58,10 @@ export class UserController {
       new UserLoginModel(dto.email, dto.pass),
     );
 
-    response.header('access_token', result.accessToken).end();
+    response
+      .header('x-access-token', result.accessToken)
+      .header('Access-Control-Expose-Headers', 'x-access-token')
+      .end();
   }
 
   @Put('/change-pass')
