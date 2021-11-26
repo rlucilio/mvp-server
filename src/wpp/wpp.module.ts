@@ -18,6 +18,7 @@ export class WppModule {
             session: 'session-name',
             disableWelcome: true,
             multidevice: false,
+            autoClose: 0,
           }),
       },
       {
