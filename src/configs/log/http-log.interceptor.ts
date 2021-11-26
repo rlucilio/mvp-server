@@ -32,9 +32,8 @@ export class HttpLogInterceptor implements NestInterceptor {
     }
 
     return next.handle().pipe(
-      tap((response) => {
+      tap(() => {
         this.logger.log(`Response ${statusCode}`, req.url);
-        response && this.logger.log(response, req.url);
       }),
     );
   }

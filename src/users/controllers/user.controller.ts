@@ -7,7 +7,9 @@ import {
   Post,
   Put,
   Query,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { ChangePassService } from '../services/change-pass.service';
 import { CreatePassService } from '../services/create-pass.service';
 import { CreateUserService } from '../services/create-user.service';
@@ -51,10 +53,12 @@ export class UserController {
 
   @Post('/login')
   @HttpCode(HttpStatus.OK)
-  async loginUser(@Body() dto: UserLoginDto) {
-    await this.loginUserService.execute(
+  async loginUser(@Body() dto: UserLoginDto, @Res() response: Response) {
+    const result = await this.loginUserService.execute(
       new UserLoginModel(dto.email, dto.pass),
     );
+
+    response.header('access_token', result.accessToken).end();
   }
 
   @Put('/change-pass')

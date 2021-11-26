@@ -20,6 +20,7 @@ import { ChangePassService } from './services/change-pass.service';
 import { RequestChangePassService } from './services/request-change-pass.service';
 import { VerifyFirstAccessService } from './services/verify-first-access.service';
 import { CreatePassService } from './services/create-pass.service';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   controllers: [UserController],
@@ -33,6 +34,7 @@ import { CreatePassService } from './services/create-pass.service';
     CreatePassService,
   ],
   imports: [
+    AuthModule,
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Benefit.name, schema: BenefitSchema },

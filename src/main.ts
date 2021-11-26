@@ -5,7 +5,7 @@ import { HttpLogInterceptor } from './configs/log/http-log.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalInterceptors(new HttpLogInterceptor());
+  // app.useGlobalInterceptors(new HttpLogInterceptor());
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT || 3000);
 }
