@@ -30,7 +30,10 @@ export class CreateUserService {
         model.email,
         'teste',
         'confirmation',
-        { name: model.name, url: 'www.google.com.br' },
+        {
+          name: model.name,
+          url: `${process.env.URL_FRONT}/auth/login`,
+        },
       );
 
       this.logger.log('[END] Create user');

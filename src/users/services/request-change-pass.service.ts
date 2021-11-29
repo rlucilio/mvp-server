@@ -28,11 +28,10 @@ export class RequestChangePassService {
 
       await this.sendEmailService.execute(email, 'teste', 'change-pass', {
         name: user.name,
-        url: 'www.google.com.br',
+        url: `${process.env.URL_FRONT}/auth/change-pass?token=${temporaryPass}&email=${email}`,
       });
 
       this.logger.log('[END] request change pass');
-      return { result: temporaryPass };
     } catch (error) {
       throw new HttpException(
         'Error in request change pass',

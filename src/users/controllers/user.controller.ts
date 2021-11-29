@@ -74,7 +74,7 @@ export class UserController {
 
   @Put('/request-change-pass')
   @HttpCode(HttpStatus.OK)
-  async requestChangePassword(@Query() dto: RequestChangePassDto) {
+  async requestChangePassword(@Body() dto: RequestChangePassDto) {
     return await this.requestChangePassService.execute(dto.email);
   }
 
