@@ -21,6 +21,7 @@ import { RequestChangePassService } from './services/request-change-pass.service
 import { VerifyFirstAccessService } from './services/verify-first-access.service';
 import { CreatePassService } from './services/create-pass.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { VerifyTokenService } from './services/verify-token.service';
 
 @Module({
   controllers: [UserController],
@@ -32,6 +33,7 @@ import { AuthModule } from 'src/auth/auth.module';
     RequestChangePassService,
     VerifyFirstAccessService,
     CreatePassService,
+    VerifyTokenService,
   ],
   imports: [
     AuthModule,

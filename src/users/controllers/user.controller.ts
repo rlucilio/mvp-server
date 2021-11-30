@@ -18,14 +18,17 @@ import { ChangePassModel } from '../services/models/change-pass.model';
 import { CreatePassModel } from '../services/models/create-pass.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 import { UserLoginModel } from '../services/models/login-user.model';
+import { VerifyTokenModel } from '../services/models/verify-token.model';
 import { RequestChangePassService } from '../services/request-change-pass.service';
 import { VerifyFirstAccessService } from '../services/verify-first-access.service';
+import { VerifyTokenService } from '../services/verify-token.service';
 import { ChangePassDto } from './dtos/change-pass.dto';
 import { CreatePassDto } from './dtos/create-pass.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { VerifyFirstAccessDto } from './dtos/verify-first-access';
+import { VerifyTokenDto } from './dtos/verify-token.dto';
 
 @Controller('users')
 export class UserController {
@@ -36,6 +39,7 @@ export class UserController {
     private readonly requestChangePassService: RequestChangePassService,
     private readonly verifyFirstAccessService: VerifyFirstAccessService,
     private readonly createPassService: CreatePassService,
+    private readonly verifyTokenService: VerifyTokenService,
   ) {}
 
   @Post('/create')
@@ -88,6 +92,14 @@ export class UserController {
   async createPass(@Body() dto: CreatePassDto) {
     await this.createPassService.execute(
       new CreatePassModel(dto.email, dto.newPass),
+    );
+  }
+
+  @Get('/verify-token-change-pass')
+  @HttpCode(HttpStatus.OK)
+  async verifyTokenChangePass(@Query() dto: VerifyTokenDto) {
+    return await this.verifyTokenService.execute(
+      new VerifyTokenModel(dto.email, dto.token),
     );
   }
 }
