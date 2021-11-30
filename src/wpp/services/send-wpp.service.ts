@@ -9,7 +9,7 @@ export class SendWppService {
     @Inject('CLIENT_WPP') private readonly clientWpp: venom.Whatsapp,
   ) {}
 
-  async sendMessage(contact: string, template: string) {
+  async execute(contact: string, template: string) {
     try {
       this.logger.log('[BEGIN] send whatsapp');
       this.logger.log(`Contact: ${contact}, template: ${template}`);

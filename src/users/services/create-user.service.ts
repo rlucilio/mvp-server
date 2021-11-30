@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { SendEMailService } from 'src/email/services/send-email.service';
+import { SendWppService } from 'src/wpp/services/send-wpp.service';
+import { CONFIRMATION_WPP } from 'src/wpp/templates/confirmation.wpp';
 import { UserGateway } from '../gateways/user.gateway';
 import { CreateUserModel } from './models/create-user.model';
 
@@ -9,6 +11,7 @@ export class CreateUserService {
   constructor(
     private readonly userGateway: UserGateway,
     private readonly sendEmailService: SendEMailService,
+    private readonly sendWppService: SendWppService,
   ) {}
 
   async execute(model: CreateUserModel) {
@@ -35,6 +38,15 @@ export class CreateUserService {
           url: `${process.env.URL_FRONT}/auth/login`,
         },
       );
+
+      if (model.phone) {
+        const template = CONFIRMATION_WPP.replace(
+          '{{name}}',
+          model.name,
+        ).replace('{{url}}', `${process.env.URL_FRONT}/auth/login`);
+
+        await this.sendWppService.execute(model.phone, template);
+      }
 
       this.logger.log('[END] Create user');
     } catch (error) {

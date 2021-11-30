@@ -64,6 +64,7 @@ export class UserGateway {
     const createdUser = new this.userDocument();
     createdUser.name = model.name;
     createdUser.email = model.email;
+    createdUser.phone = model.phone;
     return await createdUser.save();
   }
 }

@@ -8,7 +8,6 @@ import * as venom from 'venom-bot';
   providers: [SendWppService],
 })
 export class WppModule {
-  private static client: venom.Whatsapp;
   static async forRoot() {
     const providers: Provider[] = [
       {

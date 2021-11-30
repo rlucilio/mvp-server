@@ -51,6 +51,7 @@ export class UserController {
         dto.type,
         dto.birthDate,
         dto.key,
+        dto.phone,
       ),
     );
   }

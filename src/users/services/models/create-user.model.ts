@@ -7,5 +7,6 @@ export class CreateUserModel {
     public type: TypeUser,
     public birthDate: Date,
     public key: string,
+    public phone: string,
   ) {}
 }
