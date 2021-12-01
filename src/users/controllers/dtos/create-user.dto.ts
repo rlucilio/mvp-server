@@ -2,7 +2,6 @@ import {
   IsDateString,
   IsEmail,
   IsIn,
-  IsMobilePhone,
   IsNotEmpty,
   IsString,
   MinLength,
@@ -29,7 +28,5 @@ export class CreateUserDto {
   @IsString()
   key: string;
 
-  @IsMobilePhone()
-  @IsString()
   phone: string;
 }

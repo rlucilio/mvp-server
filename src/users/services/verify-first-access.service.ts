@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { UserGateway } from '../gateways/user.gateway';
 import { UserState } from 'src/configs/database-mongo/schemas/enums/user-state.enum';
+import { User } from 'src/configs/database-mongo/schemas/user.schema';
 
 @Injectable()
 export class VerifyFirstAccessService {
@@ -10,17 +11,18 @@ export class VerifyFirstAccessService {
   async execute(email: string) {
     this.logger.log('[BEGIN] verify first access');
 
+    let user: User;
     try {
       this.logger.log('Try get user by email');
-      const user = await this.userGateway.findForEMail(email);
-
-      this.logger.log('[END] verify first access');
-      return { result: user.state === UserState.pending };
+      user = await this.userGateway.findForEMail(email);
     } catch (error) {
       throw new HttpException(
         'Error in verify first login',
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     }
+
+    this.logger.log('[END] verify first access');
+    return { result: user.state === UserState.pending };
   }
 }
