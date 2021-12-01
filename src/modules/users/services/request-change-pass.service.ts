@@ -3,9 +3,9 @@ import { UserGateway } from '../gateways/user.gateway';
 import * as uuid from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { SALT_OR_ROUNDS } from 'src/shared/consts';
-import { SendEMailService } from 'src/email/services/send-email.service';
-import { SendWppService } from 'src/wpp/services/send-wpp.service';
-import { CHANGE_PASS_WPP } from 'src/wpp/templates/change-pass';
+import { SendEMailService } from 'src/core/email/services/send-email.service';
+import { SendWppService } from 'src/core/wpp/services/send-wpp.service';
+import { CHANGE_PASS_WPP } from 'src/core/wpp/templates/change-pass';
 
 @Injectable()
 export class RequestChangePassService {

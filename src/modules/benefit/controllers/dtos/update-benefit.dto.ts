@@ -7,7 +7,7 @@ export class UpdateBenefitDto {
 
   @IsDateString()
   @IsNotEmpty()
-  dateBirth: Date;
+  dateBirth: string;
 
   @IsNumber()
   @IsNotEmpty()

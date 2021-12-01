@@ -4,8 +4,8 @@ import { UserGateway } from '../gateways/user.gateway';
 import { UserLoginModel } from './models/login-user.model';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/configs/database-mongo/schemas/user.schema';
-import { GenerateAccessTokenService } from 'src/auth/services/generate-access-token.service';
-import { GenerateTokenPayloadModel } from 'src/auth/services/models/generate-token-payload.model';
+import { GenerateAccessTokenService } from 'src/core/auth/services/generate-access-token.service';
+import { GenerateTokenPayloadModel } from 'src/core/auth/services/models/generate-token-payload.model';
 
 @Injectable()
 export class LoginUserService {

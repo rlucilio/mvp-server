@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { isIn } from 'class-validator';
-import { SendEMailService } from 'src/email/services/send-email.service';
-import { SendWppService } from 'src/wpp/services/send-wpp.service';
+import { SendEMailService } from 'src/core/email/services/send-email.service';
+import { SendWppService } from 'src/core/wpp/services/send-wpp.service';
 import { UserGateway } from '../gateways/user.gateway';
 import { CreateUserModel } from './models/create-user.model';
 

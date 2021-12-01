@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ChangePassService } from '../services/change-pass.service';
@@ -29,9 +30,6 @@ import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { VerifyFirstAccessDto } from './dtos/verify-first-access';
 import { VerifyTokenDto } from './dtos/verify-token.dto';
-import { UpdateBenefitDto } from './dtos/update-benefit.dto';
-import { UpdateBenefitModel } from '../services/models/update-benefit.model';
-import { UpdateBenefitService } from '../services/update-benefit.service';
 
 @Controller('users')
 export class UserController {
@@ -43,7 +41,6 @@ export class UserController {
     private readonly verifyFirstAccessService: VerifyFirstAccessService,
     private readonly createPassService: UpdateUserService,
     private readonly verifyTokenService: VerifyTokenService,
-    private readonly updateBenefitService: UpdateBenefitService,
   ) {}
 
   @Post('/create')
@@ -115,11 +112,12 @@ export class UserController {
     );
   }
 
-  @Put('/update-benefit')
-  @HttpCode(HttpStatus.OK)
-  async updateBenefit(@Body() dto: UpdateBenefitDto) {
-    return await this.updateBenefitService.execute(
-      new UpdateBenefitModel(dto.email, dto.dateBirth, dto.weight, dto.height),
-    );
-  }
+  // @Get('/get')
+  // @UseGuards(JwtAuthGuard)
+  // @HttpCode(HttpStatus.OK)
+  // async getProvider(@Body() dto: UpdateProviderDto) {
+  //   return await this.updateProviderService.execute(
+  //     new UpdateProviderModel(dto.bio, dto.email),
+  //   );
+  // }
 }

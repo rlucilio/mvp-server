@@ -22,8 +22,8 @@ export class Benefit {
   @Prop({ type: BenefitEmotional })
   emotional: Array<BenefitEmotional>;
 
-  @Prop({ type: Date })
-  birthDate: Date;
+  @Prop()
+  birthDate: string;
 
   @Prop({ type: Date, default: new Date() })
   insertDate: Date;

@@ -15,9 +15,6 @@ export class Provider {
   user: User;
 
   @Prop({ type: String })
-  urlPhoto: string;
-
-  @Prop({ type: String })
   specialty: string;
 
   @Prop({ type: String })

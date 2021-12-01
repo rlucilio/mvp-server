@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseMongoModule } from './configs/database-mongo/database-mongo.module';
-import { HealthchecksModule } from './healthchecks/healthchecks.module';
-import { UserModule } from './users/user.module';
-import { EMailModule } from './email/email.module';
-import { WppModule } from './wpp/wpp.module';
+import { HealthchecksModule } from './core/healthchecks/healthchecks.module';
+import { UserModule } from './modules/users/user.module';
+import { EMailModule } from './core/email/email.module';
+import { WppModule } from './core/wpp/wpp.module';
+import { BenefitModule } from './modules/benefit/benefit.module';
+import { ProviderModule } from './modules/provider/provider.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { WppModule } from './wpp/wpp.module';
     UserModule,
     EMailModule,
     WppModule.forRoot(),
+    BenefitModule,
+    ProviderModule,
   ],
   controllers: [],
   providers: [],
