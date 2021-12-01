@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ChangePassService } from '../services/change-pass.service';
-import { CreatePassService } from '../services/create-benefit.service';
+import { UpdateUserService } from '../services/update-user.service';
 import { CreateUserService } from '../services/create-user.service';
 import { LoginUserService } from '../services/login-user.service';
 import { ChangePassModel } from '../services/models/change-pass.model';
-import { UpdateBenefitModel } from '../services/models/update-benefit.model';
+import { UpdateUserModel } from '../services/models/update-user.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 import { UserLoginModel } from '../services/models/login-user.model';
 import { VerifyTokenModel } from '../services/models/verify-token.model';
@@ -23,12 +23,15 @@ import { RequestChangePassService } from '../services/request-change-pass.servic
 import { VerifyFirstAccessService } from '../services/verify-first-access.service';
 import { VerifyTokenService } from '../services/verify-token.service';
 import { ChangePassDto } from './dtos/change-pass.dto';
-import { UpdateBenefitDto } from './dtos/update-benefit.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
 import { VerifyFirstAccessDto } from './dtos/verify-first-access';
 import { VerifyTokenDto } from './dtos/verify-token.dto';
+import { UpdateBenefitDto } from './dtos/update-benefit.dto';
+import { UpdateBenefitModel } from '../services/models/update-benefit.model';
+import { UpdateBenefitService } from '../services/update-benefit.service';
 
 @Controller('users')
 export class UserController {
@@ -38,14 +41,21 @@ export class UserController {
     private readonly changePassService: ChangePassService,
     private readonly requestChangePassService: RequestChangePassService,
     private readonly verifyFirstAccessService: VerifyFirstAccessService,
-    private readonly createPassService: CreatePassService,
+    private readonly createPassService: UpdateUserService,
     private readonly verifyTokenService: VerifyTokenService,
+    private readonly updateBenefitService: UpdateBenefitService,
   ) {}
 
   @Post('/create')
   async createUser(@Body() dto: CreateUserDto) {
     await this.createUserService.execute(
-      new CreateUserModel(dto.name, dto.email, dto.type, dto.key),
+      new CreateUserModel(
+        dto.name,
+        dto.email,
+        dto.type,
+        dto.key,
+        dto.specialty,
+      ),
     );
   }
 
@@ -83,9 +93,9 @@ export class UserController {
 
   @Put('/update')
   @HttpCode(HttpStatus.OK)
-  async updateUser(@Body() dto: UpdateBenefitDto) {
+  async updateUser(@Body() dto: UpdateUserDto) {
     await this.createPassService.execute(
-      new UpdateBenefitModel(
+      new UpdateUserModel(
         dto.oldEmail,
         dto.newEmail,
         dto.newPass,
@@ -102,6 +112,14 @@ export class UserController {
   async verifyTokenChangePass(@Query() dto: VerifyTokenDto) {
     return await this.verifyTokenService.execute(
       new VerifyTokenModel(dto.email, dto.token),
+    );
+  }
+
+  @Put('/update-benefit')
+  @HttpCode(HttpStatus.OK)
+  async updateBenefit(@Body() dto: UpdateBenefitDto) {
+    return await this.updateBenefitService.execute(
+      new UpdateBenefitModel(dto.email, dto.dateBirth, dto.weight, dto.height),
     );
   }
 }

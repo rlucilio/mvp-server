@@ -14,8 +14,9 @@ import {
   User,
   UserDocument,
 } from 'src/configs/database-mongo/schemas/user.schema';
-import { UpdateBenefitModel } from '../services/models/update-benefit.model';
+import { UpdateUserModel } from '../services/models/update-user.model';
 import { CreateUserModel } from '../services/models/create-user.model';
+import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 
 @Injectable()
 export class UserGateway {
@@ -38,7 +39,7 @@ export class UserGateway {
   async createProvider(model: CreateUserModel) {
     const createdUser = await this.createUser(model);
     const createdProvider = new this.providerDocument();
-
+    createdProvider.specialty = model.specialty;
     createdProvider.user = createdUser;
     return await createdProvider.save();
   }
@@ -57,7 +58,7 @@ export class UserGateway {
     return (await this.benefitDocument.findOne({ user }).exec()).toObject();
   }
 
-  async updateUser(id: string, benefitModel: UpdateBenefitModel) {
+  async updateUser(id: string, benefitModel: UpdateUserModel) {
     const user = await this.userDocument.findById(id);
 
     await user.update({
@@ -65,6 +66,24 @@ export class UserGateway {
       email: benefitModel.newEmail,
       phone: benefitModel.mobilePhone,
       gender: benefitModel.gender,
+    });
+  }
+
+  async updateBenefit(email: string, benefitModel: UpdateBenefitModel) {
+    const user = await this.userDocument
+      .findOne({
+        email,
+      })
+      .exec();
+
+    const benefit = await this.benefitDocument.findOne({ user });
+
+    await benefit.update({
+      birthDate: benefitModel.dateBirth,
+      body: [
+        ...benefit.body,
+        { weight: benefitModel.weight, height: benefitModel.height },
+      ],
     });
   }
 

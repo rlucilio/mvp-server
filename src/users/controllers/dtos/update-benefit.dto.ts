@@ -1,39 +1,19 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsIn,
-  IsNotEmpty,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsDateString, IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class UpdateBenefitDto {
   @IsEmail()
   @IsNotEmpty()
-  oldEmail: string;
+  email: string;
 
-  @IsEmail()
+  @IsDateString()
   @IsNotEmpty()
-  newEmail: string;
+  dateBirth: Date;
 
+  @IsNumber()
   @IsNotEmpty()
-  @IsString()
-  @MinLength(4)
-  newPass: string;
+  weight: number;
 
+  @IsNumber()
   @IsNotEmpty()
-  @IsString()
-  @MinLength(4)
-  name: string;
-
-  mobilePhone: string;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  acceptTerm: boolean;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsIn(['MALE', 'FEMALE', 'UNINFORMED'])
-  gender: string;
+  height: number;
 }

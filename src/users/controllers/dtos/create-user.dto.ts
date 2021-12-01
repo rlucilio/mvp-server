@@ -23,4 +23,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   key: string;
+
+  specialty: string;
 }

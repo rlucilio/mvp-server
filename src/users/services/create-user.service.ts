@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { isIn } from 'class-validator';
 import { SendEMailService } from 'src/email/services/send-email.service';
 import { SendWppService } from 'src/wpp/services/send-wpp.service';
 import { UserGateway } from '../gateways/user.gateway';
@@ -25,7 +26,19 @@ export class CreateUserService {
         await this.userGateway.creteBenefit(model);
       } else {
         this.logger.log('Create provider');
-        await this.userGateway.createProvider(model);
+
+        if (
+          isIn(model.specialty, [
+            'ENFERMEIRA',
+            'MEDICO',
+            'NUTRICIONISTA',
+            'EDUCADOR_FISICO',
+          ])
+        ) {
+          await this.userGateway.createProvider(model);
+        } else {
+          throw new HttpException('Specialty invalid', HttpStatus.BAD_REQUEST);
+        }
       }
 
       await this.sendEmailService.execute(
