@@ -11,11 +11,12 @@ import {
 import { AuthModule } from 'src/core/auth/auth.module';
 import { ProviderController } from './controllers/provider.controller';
 import { ProviderGateway } from './gateways/provider.gateway';
+import { FindProviderService } from './services/find-provider.service';
 import { UpdateProviderService } from './services/update-provider.service';
 
 @Module({
   controllers: [ProviderController],
-  providers: [UpdateProviderService, ProviderGateway],
+  providers: [UpdateProviderService, ProviderGateway, FindProviderService],
   imports: [
     AuthModule,
     MongooseModule.forFeature([

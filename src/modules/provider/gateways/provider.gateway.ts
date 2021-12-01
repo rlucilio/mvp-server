@@ -32,4 +32,14 @@ export class ProviderGateway {
       bio: benefitModel.bio,
     });
   }
+
+  async findProvider(email: string) {
+    const user = await this.userDocument
+      .findOne({
+        email,
+      })
+      .exec();
+
+    return await (await this.providerDocument.findOne({ user })).toObject();
+  }
 }

@@ -47,7 +47,7 @@ export class CreateUserService {
         'confirmation',
         {
           name: model.name,
-          url: `${process.env.URL_FRONT}/auth/register-pass/${model.email}`,
+          url: `${process.env.URL_FRONT}/auth/register-pass/${model.email}?user=${model.type}`,
         },
       );
 
