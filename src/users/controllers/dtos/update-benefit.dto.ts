@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateBenefitDto {
+export class UpdateBenefitDto {
   @IsEmail()
   @IsNotEmpty()
   oldEmail: string;

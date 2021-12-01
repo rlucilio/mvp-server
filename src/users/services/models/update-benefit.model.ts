@@ -1,4 +1,4 @@
-export class CreateBenefitModel {
+export class UpdateBenefitModel {
   constructor(
     public oldEmail: string,
     public newEmail: string,
@@ -6,9 +6,5 @@ export class CreateBenefitModel {
     public name: string,
     public mobilePhone: string,
     public acceptTerm: boolean,
-    public gender: string,
-    public birthDate: Date,
-    public weight: number,
-    public height: number,
   ) {}
 }

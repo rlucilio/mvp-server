@@ -3,7 +3,7 @@ import { UserGateway } from '../gateways/user.gateway';
 import * as bcrypt from 'bcrypt';
 import { SALT_OR_ROUNDS } from 'src/shared/consts';
 import { UserState } from 'src/configs/database-mongo/schemas/enums/user-state.enum';
-import { CreateBenefitModel } from './models/create-pass.model';
+import { UpdateBenefitModel } from './models/update-benefit.model';
 
 @Injectable()
 export class CreatePassService {
@@ -11,7 +11,7 @@ export class CreatePassService {
 
   constructor(private readonly userGateway: UserGateway) {}
 
-  async execute(model: CreateBenefitModel) {
+  async execute(model: UpdateBenefitModel) {
     this.logger.log('[BEGIN] create pass');
 
     try {
@@ -24,7 +24,7 @@ export class CreatePassService {
           bcrypt.hashSync(model.newPass, SALT_OR_ROUNDS),
           UserState.activated,
         );
-        await this.userGateway.updateBenefit(user._id, model);
+        await this.userGateway.updateUser(user._id, model);
       } else {
         throw new HttpException(
           'User activated',

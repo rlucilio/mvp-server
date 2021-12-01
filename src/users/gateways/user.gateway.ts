@@ -14,7 +14,7 @@ import {
   User,
   UserDocument,
 } from 'src/configs/database-mongo/schemas/user.schema';
-import { CreateBenefitModel } from '../services/models/create-pass.model';
+import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 
 @Injectable()
@@ -57,19 +57,13 @@ export class UserGateway {
     return (await this.benefitDocument.findOne({ user }).exec()).toObject();
   }
 
-  async updateBenefit(id: string, benefitModel: CreateBenefitModel) {
+  async updateUser(id: string, benefitModel: UpdateBenefitModel) {
     const user = await this.userDocument.findById(id);
-    const benefit = await this.benefitDocument.findOne({ user });
 
     await user.update({
       name: benefitModel.name,
       email: benefitModel.newEmail,
       phone: benefitModel.mobilePhone,
-    });
-
-    await benefit.update({
-      birthDate: benefitModel.birthDate,
-      body: [{ height: benefitModel.height, weight: benefitModel.weight }],
     });
   }
 

@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ChangePassService } from '../services/change-pass.service';
-import { CreatePassService } from '../services/create-pass.service';
+import { CreatePassService } from '../services/create-benefit.service';
 import { CreateUserService } from '../services/create-user.service';
 import { LoginUserService } from '../services/login-user.service';
 import { ChangePassModel } from '../services/models/change-pass.model';
-import { CreateBenefitModel } from '../services/models/create-pass.model';
+import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 import { UserLoginModel } from '../services/models/login-user.model';
 import { VerifyTokenModel } from '../services/models/verify-token.model';
@@ -23,7 +23,7 @@ import { RequestChangePassService } from '../services/request-change-pass.servic
 import { VerifyFirstAccessService } from '../services/verify-first-access.service';
 import { VerifyTokenService } from '../services/verify-token.service';
 import { ChangePassDto } from './dtos/change-pass.dto';
-import { CreateBenefitDto } from './dtos/create-pass.dto';
+import { UpdateBenefitDto } from './dtos/update-benefit.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
@@ -81,21 +81,17 @@ export class UserController {
     return await this.verifyFirstAccessService.execute(dto.email);
   }
 
-  @Put('/create-benefit')
+  @Put('/update')
   @HttpCode(HttpStatus.OK)
-  async createPass(@Body() dto: CreateBenefitDto) {
+  async updateUser(@Body() dto: UpdateBenefitDto) {
     await this.createPassService.execute(
-      new CreateBenefitModel(
+      new UpdateBenefitModel(
         dto.oldEmail,
         dto.newEmail,
         dto.newPass,
         dto.name,
         dto.mobilePhone,
         dto.acceptTerm,
-        dto.gender,
-        dto.birthDate,
-        dto.weight,
-        dto.height,
       ),
     );
   }

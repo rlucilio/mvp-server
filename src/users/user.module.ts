@@ -19,7 +19,7 @@ import { LoginUserService } from './services/login-user.service';
 import { ChangePassService } from './services/change-pass.service';
 import { RequestChangePassService } from './services/request-change-pass.service';
 import { VerifyFirstAccessService } from './services/verify-first-access.service';
-import { CreatePassService } from './services/create-pass.service';
+import { CreatePassService } from './services/create-benefit.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { VerifyTokenService } from './services/verify-token.service';
 
