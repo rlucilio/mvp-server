@@ -1,10 +1,8 @@
 import {
   IsBoolean,
-  IsDateString,
   IsEmail,
   IsIn,
   IsNotEmpty,
-  IsNumber,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -38,16 +36,4 @@ export class UpdateBenefitDto {
   @IsString()
   @IsIn(['MALE', 'FEMALE', 'UNINFORMED'])
   gender: string;
-
-  @IsDateString()
-  @IsNotEmpty()
-  birthDate: Date;
-
-  @IsNumber()
-  @IsNotEmpty()
-  weight: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  height: number;
 }

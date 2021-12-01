@@ -64,6 +64,7 @@ export class UserGateway {
       name: benefitModel.name,
       email: benefitModel.newEmail,
       phone: benefitModel.mobilePhone,
+      gender: benefitModel.gender,
     });
   }
 

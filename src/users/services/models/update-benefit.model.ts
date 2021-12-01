@@ -6,5 +6,6 @@ export class UpdateBenefitModel {
     public name: string,
     public mobilePhone: string,
     public acceptTerm: boolean,
+    public gender: string,
   ) {}
 }

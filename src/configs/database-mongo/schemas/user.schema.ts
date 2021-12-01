@@ -29,6 +29,9 @@ export class User {
 
   @Prop({ type: String })
   phone: string;
+
+  @Prop({ type: String })
+  gender: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

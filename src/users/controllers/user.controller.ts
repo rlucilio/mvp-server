@@ -92,6 +92,7 @@ export class UserController {
         dto.name,
         dto.mobilePhone,
         dto.acceptTerm,
+        dto.gender,
       ),
     );
   }
