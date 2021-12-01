@@ -15,7 +15,7 @@ import { CreatePassService } from '../services/create-pass.service';
 import { CreateUserService } from '../services/create-user.service';
 import { LoginUserService } from '../services/login-user.service';
 import { ChangePassModel } from '../services/models/change-pass.model';
-import { CreatePassModel } from '../services/models/create-pass.model';
+import { CreateBenefitModel } from '../services/models/create-pass.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 import { UserLoginModel } from '../services/models/login-user.model';
 import { VerifyTokenModel } from '../services/models/verify-token.model';
@@ -23,7 +23,7 @@ import { RequestChangePassService } from '../services/request-change-pass.servic
 import { VerifyFirstAccessService } from '../services/verify-first-access.service';
 import { VerifyTokenService } from '../services/verify-token.service';
 import { ChangePassDto } from './dtos/change-pass.dto';
-import { CreatePassDto } from './dtos/create-pass.dto';
+import { CreateBenefitDto } from './dtos/create-pass.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { RequestChangePassDto } from './dtos/request-change-pass.dto';
 import { UserLoginDto } from './dtos/user-login.dto';
@@ -45,14 +45,7 @@ export class UserController {
   @Post('/create')
   async createUser(@Body() dto: CreateUserDto) {
     await this.createUserService.execute(
-      new CreateUserModel(
-        dto.name,
-        dto.email,
-        dto.type,
-        dto.birthDate,
-        dto.key,
-        dto.phone,
-      ),
+      new CreateUserModel(dto.name, dto.email, dto.type, dto.key),
     );
   }
 
@@ -88,11 +81,22 @@ export class UserController {
     return await this.verifyFirstAccessService.execute(dto.email);
   }
 
-  @Put('/create-pass')
+  @Put('/create-benefit')
   @HttpCode(HttpStatus.OK)
-  async createPass(@Body() dto: CreatePassDto) {
+  async createPass(@Body() dto: CreateBenefitDto) {
     await this.createPassService.execute(
-      new CreatePassModel(dto.email, dto.newPass),
+      new CreateBenefitModel(
+        dto.oldEmail,
+        dto.newEmail,
+        dto.newPass,
+        dto.name,
+        dto.mobilePhone,
+        dto.acceptTerm,
+        dto.gender,
+        dto.birthDate,
+        dto.weight,
+        dto.height,
+      ),
     );
   }
 

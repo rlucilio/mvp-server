@@ -22,7 +22,7 @@ export class Benefit {
   @Prop({ type: BenefitEmotional })
   emotional: Array<BenefitEmotional>;
 
-  @Prop({ type: Date, required: true })
+  @Prop({ type: Date })
   birthDate: Date;
 
   @Prop({ type: Date, default: new Date() })

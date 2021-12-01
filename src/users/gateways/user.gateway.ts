@@ -14,6 +14,7 @@ import {
   User,
   UserDocument,
 } from 'src/configs/database-mongo/schemas/user.schema';
+import { CreateBenefitModel } from '../services/models/create-pass.model';
 import { CreateUserModel } from '../services/models/create-user.model';
 
 @Injectable()
@@ -29,7 +30,6 @@ export class UserGateway {
     const createdUser = await this.createUser(model);
 
     const createdBenefit = new this.benefitDocument();
-    createdBenefit.birthDate = model.birthDate;
     createdBenefit.user = createdUser;
 
     return await createdBenefit.save();
@@ -53,6 +53,26 @@ export class UserGateway {
     ).toObject();
   }
 
+  async findBenefitByUser(user: User) {
+    return (await this.benefitDocument.findOne({ user }).exec()).toObject();
+  }
+
+  async updateBenefit(id: string, benefitModel: CreateBenefitModel) {
+    const user = await this.userDocument.findById(id);
+    const benefit = await this.benefitDocument.findOne({ user });
+
+    await user.update({
+      name: benefitModel.name,
+      email: benefitModel.newEmail,
+      phone: benefitModel.mobilePhone,
+    });
+
+    await benefit.update({
+      birthDate: benefitModel.birthDate,
+      body: [{ height: benefitModel.height, weight: benefitModel.weight }],
+    });
+  }
+
   async changePassAndState(id: string, pass: string, state?: UserState) {
     await this.userDocument.findByIdAndUpdate(
       id,
@@ -64,7 +84,6 @@ export class UserGateway {
     const createdUser = new this.userDocument();
     createdUser.name = model.name;
     createdUser.email = model.email;
-    createdUser.phone = model.phone;
     return await createdUser.save();
   }
 }

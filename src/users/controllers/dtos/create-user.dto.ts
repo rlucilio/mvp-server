@@ -1,5 +1,4 @@
 import {
-  IsDateString,
   IsEmail,
   IsIn,
   IsNotEmpty,
@@ -21,12 +20,7 @@ export class CreateUserDto {
   @IsIn(['BENEFIT', 'PROVIDER'])
   type: 'BENEFIT' | 'PROVIDER';
 
-  @IsDateString()
-  birthDate: Date;
-
   @IsNotEmpty()
   @IsString()
   key: string;
-
-  phone: string;
 }
