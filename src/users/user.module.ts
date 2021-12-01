@@ -22,6 +22,7 @@ import { VerifyFirstAccessService } from './services/verify-first-access.service
 import { UpdateUserService } from './services/update-user.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { VerifyTokenService } from './services/verify-token.service';
+import { UpdateBenefitService } from './services/update-benefit.service';
 
 @Module({
   controllers: [UserController],
@@ -34,6 +35,7 @@ import { VerifyTokenService } from './services/verify-token.service';
     VerifyFirstAccessService,
     UpdateUserService,
     VerifyTokenService,
+    UpdateBenefitService,
   ],
   imports: [
     AuthModule,
