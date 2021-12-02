@@ -12,21 +12,27 @@ export class WppModule {
     const providers: Provider[] = [
       {
         provide: 'CLIENT_WPP',
-        useFactory: async () =>
-          process.env.OS_ENV === 'prd'
-            ? await venom
-                .create({
-                  session: 'MVP Novo produto',
-                  disableWelcome: true,
-                  multidevice: false,
-                  autoClose: 0,
-                  folderNameToken: './tokens',
-                  catchQR: () => console.log('Error WPP'),
-                })
-                .catch(console.log)
-            : {
-                sendText: (...args: any[]) => console.log(args),
-              },
+        useFactory: async () => {
+          try {
+            return process.env.OS_ENV === 'prd'
+              ? await venom
+                  .create({
+                    session: 'MVP Novo produto',
+                    disableWelcome: true,
+                    multidevice: false,
+                    autoClose: 0,
+                    folderNameToken: './tokens',
+                  })
+                  .catch(console.log)
+              : {
+                  sendText: (...args: any[]) => console.log(args),
+                };
+          } catch (error) {
+            return {
+              sendText: (...args: any[]) => console.log(args),
+            };
+          }
+        },
       },
       {
         provide: SendWppService,
