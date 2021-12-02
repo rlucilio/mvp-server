@@ -5,7 +5,7 @@
     "spec": false
   },
   "compilerOptions": {
-    "assets": ["email/templates/**/*"],
+    "assets": ["core/email/templates/**/*"],
     "watchAssets": true
   }
 }

@@ -22,7 +22,7 @@ export class ProviderController {
     private readonly findProviderService: FindProviderService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Put('/update')
   @HttpCode(HttpStatus.OK)
   async updateProvider(@Body() dto: UpdateProviderDto) {
@@ -31,7 +31,7 @@ export class ProviderController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('/find')
   @HttpCode(HttpStatus.OK)
   async findProvider(@Query() dto: FindProviderDto) {

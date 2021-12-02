@@ -15,8 +15,8 @@ import { UpdateBenefitDto } from './dtos/update-benefit.dto';
 export class BenefitController {
   constructor(private readonly updateBenefitService: UpdateBenefitService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Put('/benefit')
+  // @UseGuards(JwtAuthGuard)
+  @Put('/update')
   @HttpCode(HttpStatus.OK)
   async updateBenefit(@Body() dto: UpdateBenefitDto) {
     return await this.updateBenefitService.execute(

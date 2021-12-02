@@ -9,7 +9,7 @@ export class UpdateProviderService {
   constructor(private readonly userGateway: ProviderGateway) {}
 
   async execute(model: UpdateProviderModel) {
-    this.logger.log('[BEGIN] update benefit');
+    this.logger.log('[BEGIN] update provider');
 
     try {
       this.logger.log('Try get user by email');
@@ -17,11 +17,11 @@ export class UpdateProviderService {
       await this.userGateway.updateProvider(model.email, model);
     } catch (error) {
       throw new HttpException(
-        'Error in update benefit',
+        'Error in update provider',
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    this.logger.log('[END] update benefit');
+    this.logger.log('[END] update provider');
   }
 }

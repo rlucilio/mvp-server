@@ -1,11 +1,10 @@
-import { IsDateString, IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class UpdateBenefitDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
-  @IsDateString()
   @IsNotEmpty()
   dateBirth: string;
 

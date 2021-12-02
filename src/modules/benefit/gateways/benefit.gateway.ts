@@ -26,11 +26,12 @@ export class BenefitGateway {
       .exec();
 
     const benefit = await this.benefitDocument.findOne({ user });
+    const newBody = benefit.body ? benefit.body : [];
 
     await benefit.update({
       birthDate: benefitModel.dateBirth,
       body: [
-        ...benefit.body,
+        ...newBody,
         { weight: benefitModel.weight, height: benefitModel.height },
       ],
     });
