@@ -21,6 +21,7 @@ export class WppModule {
                   multidevice: false,
                   autoClose: 0,
                   folderNameToken: './tokens',
+                  catchQR: () => console.log('Error WPP'),
                 })
                 .catch(console.log)
             : {
