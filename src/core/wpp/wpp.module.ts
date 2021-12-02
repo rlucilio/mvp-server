@@ -15,15 +15,13 @@ export class WppModule {
         useFactory: async () => {
           try {
             return process.env.OS_ENV === 'prd'
-              ? await venom
-                  .create({
-                    session: 'MVP Novo produto',
-                    disableWelcome: true,
-                    multidevice: false,
-                    autoClose: 0,
-                    folderNameToken: './tokens',
-                  })
-                  .catch(console.log)
+              ? await venom.create({
+                  session: 'MVP Novo produto',
+                  disableWelcome: true,
+                  multidevice: false,
+                  autoClose: 0,
+                  folderNameToken: './tokens',
+                })
               : {
                   sendText: (...args: any[]) => console.log(args),
                 };
