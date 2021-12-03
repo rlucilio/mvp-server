@@ -11,10 +11,11 @@ import {
 import { AuthModule } from 'src/core/auth/auth.module';
 import { BenefitController } from './controllers/benefit.controller';
 import { BenefitGateway } from './gateways/benefit.gateway';
+import { SetAnswerFormService } from './services/set-answer-form.service';
 import { UpdateBenefitService } from './services/update-benefit.service';
 
 @Module({
-  providers: [UpdateBenefitService, BenefitGateway],
+  providers: [UpdateBenefitService, BenefitGateway, SetAnswerFormService],
   controllers: [BenefitController],
   imports: [
     AuthModule,

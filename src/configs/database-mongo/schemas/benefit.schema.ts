@@ -30,6 +30,9 @@ export class Benefit {
 
   @Prop({ type: Date, default: new Date() })
   updateDate: Date;
+
+  @Prop()
+  answeredForm: boolean;
 }
 
 export const BenefitSchema = SchemaFactory.createForClass(Benefit);

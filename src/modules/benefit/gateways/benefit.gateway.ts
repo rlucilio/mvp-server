@@ -36,4 +36,15 @@ export class BenefitGateway {
       ],
     });
   }
+
+  async setAswForm(email: string, asw: boolean) {
+    const user = await this.userDocument.findOne({ email });
+
+    await this.benefitDocument.findOneAndUpdate(
+      { user },
+      {
+        answeredForm: asw,
+      },
+    );
+  }
 }

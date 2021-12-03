@@ -16,7 +16,6 @@ import {
 } from 'src/configs/database-mongo/schemas/user.schema';
 import { UpdateUserModel } from '../services/models/update-user.model';
 import { CreateUserModel } from '../services/models/create-user.model';
-import { UpdateProviderModel } from '../../provider/services/models/update-provider.model';
 
 @Injectable()
 export class UserGateway {
