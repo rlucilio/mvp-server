@@ -4,7 +4,6 @@ import { DatabaseMongoModule } from './configs/database-mongo/database-mongo.mod
 import { HealthchecksModule } from './core/healthchecks/healthchecks.module';
 import { UserModule } from './modules/users/user.module';
 import { EMailModule } from './core/email/email.module';
-import { WppModule } from './core/wpp/wpp.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import { ProviderModule } from './modules/provider/provider.module';
 
@@ -15,7 +14,6 @@ import { ProviderModule } from './modules/provider/provider.module';
     HealthchecksModule,
     UserModule,
     EMailModule,
-    WppModule.forRoot(),
     BenefitModule,
     ProviderModule,
   ],
