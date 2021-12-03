@@ -40,6 +40,8 @@ export class BenefitGateway {
   async setAswForm(email: string, asw: boolean) {
     const user = await this.userDocument.findOne({ email });
 
+    if (!user) throw new Error('Benefit not found');
+
     await this.benefitDocument.findOneAndUpdate(
       { user },
       {

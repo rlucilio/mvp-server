@@ -8,7 +8,7 @@ export class SetAnswerFormService {
   constructor(private readonly benefitGateway: BenefitGateway) {}
 
   async execute(model: QuestionsModel) {
-    this.logger.log('[BEGIN]Set answer form');
+    this.logger.log('[BEGIN] Set answer form');
     try {
       const questionEmail = model.questions.find(
         (quest) => quest.question.toLowerCase() === 'e-mail',
@@ -23,9 +23,9 @@ export class SetAnswerFormService {
         throw new HttpException('Benefit not asw email', HttpStatus.NOT_FOUND);
       }
     } catch (error) {
-      this.logger.log('[END]Set answer form');
+      this.logger.log('[END] Set answer form');
       throw new HttpException('Benefit not found', HttpStatus.NOT_FOUND);
     }
-    this.logger.log('[END]Set answer form');
+    this.logger.log('[END] Set answer form');
   }
 }
