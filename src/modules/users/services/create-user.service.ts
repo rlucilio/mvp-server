@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { isIn } from 'class-validator';
 import { SendEMailService } from 'src/core/email/services/send-email.service';
-import { SendWppService } from 'src/core/wpp/services/send-wpp.service';
 import { UserGateway } from '../gateways/user.gateway';
 import { CreateUserModel } from './models/create-user.model';
 
@@ -11,7 +10,6 @@ export class CreateUserService {
   constructor(
     private readonly userGateway: UserGateway,
     private readonly sendEmailService: SendEMailService,
-    private readonly sendWppService: SendWppService,
   ) {}
 
   async execute(model: CreateUserModel) {

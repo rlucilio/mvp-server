@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
-import { JwtAuthGuard } from 'src/core/auth/guards/jwt.guard';
+import { Body, Controller, HttpCode, HttpStatus, Put } from '@nestjs/common';
 import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 import { UpdateBenefitService } from '../services/update-benefit.service';
 import { UpdateBenefitDto } from './dtos/update-benefit.dto';
@@ -15,7 +7,6 @@ import { UpdateBenefitDto } from './dtos/update-benefit.dto';
 export class BenefitController {
   constructor(private readonly updateBenefitService: UpdateBenefitService) {}
 
-  // @UseGuards(JwtAuthGuard)
   @Put('/update')
   @HttpCode(HttpStatus.OK)
   async updateBenefit(@Body() dto: UpdateBenefitDto) {

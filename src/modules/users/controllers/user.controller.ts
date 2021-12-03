@@ -8,7 +8,6 @@ import {
   Put,
   Query,
   Res,
-  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ChangePassService } from '../services/change-pass.service';

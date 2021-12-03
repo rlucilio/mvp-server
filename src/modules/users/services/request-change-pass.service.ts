@@ -4,8 +4,6 @@ import * as uuid from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { SALT_OR_ROUNDS } from 'src/shared/consts';
 import { SendEMailService } from 'src/core/email/services/send-email.service';
-import { SendWppService } from 'src/core/wpp/services/send-wpp.service';
-import { CHANGE_PASS_WPP } from 'src/core/wpp/templates/change-pass';
 
 @Injectable()
 export class RequestChangePassService {
@@ -13,7 +11,6 @@ export class RequestChangePassService {
   constructor(
     private readonly userGateway: UserGateway,
     private readonly sendEmailService: SendEMailService,
-    private readonly sendWppService: SendWppService,
   ) {}
 
   async execute(email: string) {
@@ -33,14 +30,6 @@ export class RequestChangePassService {
         name: user.name,
         url: `${process.env.URL_FRONT}/auth/change-pass?token=${temporaryPass}&email=${email}`,
       });
-
-      if (user.phone) {
-        const template = CHANGE_PASS_WPP.replace('{{name}}', user.name).replace(
-          '{{url}}',
-          `${process.env.URL_FRONT}/auth/change-pass?token=${temporaryPass}&email=${email}`,
-        );
-        await this.sendWppService.execute(user.phone, template);
-      }
 
       this.logger.log('[END] request change pass');
     } catch (error) {
