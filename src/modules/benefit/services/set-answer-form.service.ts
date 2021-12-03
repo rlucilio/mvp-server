@@ -15,7 +15,7 @@ export class SetAnswerFormService {
       );
 
       if (questionEmail) {
-        this.benefitGateway.setAswForm(
+        await this.benefitGateway.setAswForm(
           questionEmail.answer,
           model.questions.length > 1,
         );

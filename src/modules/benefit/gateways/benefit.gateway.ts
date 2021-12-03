@@ -49,4 +49,14 @@ export class BenefitGateway {
       },
     );
   }
+
+  async getBenefitByEmail(email: string) {
+    const user = await this.userDocument.findOne({ email });
+
+    if (!user) throw new Error('Benefit not found');
+
+    return await (
+      await this.benefitDocument.findOneAndUpdate({ user })
+    ).toObject();
+  }
 }
