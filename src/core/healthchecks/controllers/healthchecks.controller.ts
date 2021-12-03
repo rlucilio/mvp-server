@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get } from '@nestjs/common';
 import { GetReadinessService } from '../services/get-liveness/get-readiness.service';
 import { GetLivenessService } from '../services/get-liveness/get-liveness.service';
 
@@ -15,7 +15,8 @@ export class HealthchecksController {
   }
 
   @Get('/liveness')
-  getLiveness() {
+  getLiveness(@Body() value: any) {
+    console.log(value);
     return this.getLivenessService.execute();
   }
 }
