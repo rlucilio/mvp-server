@@ -9,20 +9,20 @@ export class FindBenefitService {
   async execute(email: string) {
     this.logger.log('[BEGIN] find benefit');
     try {
-      const benefit = await this.benefitGateway.getBenefitByEmail(email);
+      const result = await this.benefitGateway.getBenefitByEmail(email);
 
       return {
-        answeredForm: benefit.answeredForm,
-        id: benefit.id,
-        birthDate: benefit.birthDate,
-        body: benefit.body,
-        emotional: benefit.emotional,
-        questions: benefit.questions,
-        email: benefit.user.email,
-        urlPhoto: benefit.user.urlPhoto,
-        gender: benefit.user.gender,
-        name: benefit.user.name,
-        phone: benefit.user.phone,
+        answeredForm: result.benefit.answeredForm,
+        id: result.benefit.id,
+        birthDate: result.benefit.birthDate,
+        body: result.benefit.body,
+        emotional: result.benefit.emotional,
+        questions: result.benefit.questions,
+        email: result.user.email,
+        urlPhoto: result.user.urlPhoto,
+        gender: result.user.gender,
+        name: result.user.name,
+        phone: result.user.phone,
       };
     } catch (error) {
       this.logger.log('[END] find benefit');

@@ -10,18 +10,18 @@ export class FindProviderService {
     this.logger.log('[BEGIN] Find provider');
 
     try {
-      const provider = await this.providerGateway.findProvider(email);
+      const result = await this.providerGateway.findProvider(email);
 
       this.logger.log('[END] Find provider');
       return {
-        name: provider.user.name,
-        specialty: provider.specialty,
-        bio: provider.bio,
-        email: provider.user.email,
-        state: provider.user.state,
-        urlPhoto: provider.user.urlPhoto,
-        phone: provider.user.phone,
-        gender: provider.user.gender,
+        name: result.user.name,
+        specialty: result.provider.specialty,
+        bio: result.provider.bio,
+        email: result.user.email,
+        state: result.user.state,
+        urlPhoto: result.user.urlPhoto,
+        phone: result.user.phone,
+        gender: result.user.gender,
       };
     } catch (error) {
       this.logger.warn(error.message);

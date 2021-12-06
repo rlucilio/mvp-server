@@ -40,6 +40,11 @@ export class ProviderGateway {
       })
       .exec();
 
-    return await (await this.providerDocument.findOne({ user })).toObject();
+    return {
+      provider: await (
+        await this.providerDocument.findOne({ user })
+      ).toObject(),
+      user,
+    };
   }
 }
