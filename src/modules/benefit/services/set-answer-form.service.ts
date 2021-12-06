@@ -18,6 +18,7 @@ export class SetAnswerFormService {
         await this.benefitGateway.setAswForm(
           questionEmail.answer,
           model.questions.length > 1,
+          model,
         );
       } else {
         throw new HttpException('Benefit not asw email', HttpStatus.NOT_FOUND);

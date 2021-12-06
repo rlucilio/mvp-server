@@ -6,6 +6,10 @@ import { BenefitBody } from './models/benefit-body';
 import { BenefitEmotional } from './models/benefit-emotional';
 
 export type BenefitDocument = Benefit & Document;
+class Questions {
+  question: string;
+  answer: string;
+}
 
 @Schema()
 export class Benefit {
@@ -33,6 +37,12 @@ export class Benefit {
 
   @Prop()
   answeredForm: boolean;
+
+  @Prop({ type: Questions })
+  questions: {
+    question: string;
+    answer: string;
+  }[];
 }
 
 export const BenefitSchema = SchemaFactory.createForClass(Benefit);

@@ -9,6 +9,7 @@ import {
   User,
   UserDocument,
 } from 'src/configs/database-mongo/schemas/user.schema';
+import { QuestionsModel } from '../services/models/questions.model';
 import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 
 @Injectable()
@@ -37,7 +38,7 @@ export class BenefitGateway {
     });
   }
 
-  async setAswForm(email: string, asw: boolean) {
+  async setAswForm(email: string, asw: boolean, model: QuestionsModel) {
     const user = await this.userDocument.findOne({ email });
 
     if (!user) throw new Error('Benefit not found');
@@ -46,6 +47,7 @@ export class BenefitGateway {
       { user },
       {
         answeredForm: asw,
+        questions: model.questions,
       },
     );
   }
