@@ -6,6 +6,7 @@ import { UserModule } from './modules/users/user.module';
 import { EMailModule } from './core/email/email.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import { ProviderModule } from './modules/provider/provider.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProviderModule } from './modules/provider/provider.module';
     EMailModule,
     BenefitModule,
     ProviderModule,
+    ScheduleModule,
   ],
   controllers: [],
   providers: [],
