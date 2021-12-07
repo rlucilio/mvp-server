@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Benefit } from 'src/configs/database-mongo/schemas/benefit.schema';
 import { Provider } from 'src/configs/database-mongo/schemas/provider.schema';
 import {
   Schedule,
@@ -42,5 +43,9 @@ export class ScheduleGateway {
 
   async getAll() {
     return await this.scheduleDocument.find({ benefit: null });
+  }
+
+  async findByEmailBenefit(benefit: Benefit) {
+    return await this.scheduleDocument.find({ benefit });
   }
 }
