@@ -41,9 +41,7 @@ export class ProviderGateway {
       .exec();
 
     return {
-      provider: await (
-        await this.providerDocument.findOne({ user })
-      ).toObject(),
+      provider: await this.providerDocument.findOne({ user }),
       user,
     };
   }

@@ -58,9 +58,7 @@ export class BenefitGateway {
     if (!user) throw new Error('Benefit not found');
 
     return {
-      benefit: await (
-        await this.benefitDocument.findOneAndUpdate({ user })
-      ).toObject(),
+      benefit: await this.benefitDocument.findOneAndUpdate({ user }),
       user,
     };
   }
