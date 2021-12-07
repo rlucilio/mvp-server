@@ -45,4 +45,13 @@ export class ProviderGateway {
       user,
     };
   }
+
+  async findById(id: any) {
+    const provider = await this.providerDocument.findById(id).exec();
+
+    return {
+      provider,
+      user: await this.userDocument.findById(provider.user),
+    };
+  }
 }

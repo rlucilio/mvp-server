@@ -39,4 +39,8 @@ export class ScheduleGateway {
   async findByCod(cod: string) {
     return await this.scheduleDocument.findOne({ cod });
   }
+
+  async getAll() {
+    return await this.scheduleDocument.find({ benefit: null });
+  }
 }

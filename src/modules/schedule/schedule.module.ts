@@ -16,11 +16,17 @@ import { AuthModule } from 'src/core/auth/auth.module';
 import { ProviderGateway } from '../provider/gateways/provider.gateway';
 import { ScheduleController } from './controllers/schedule.controller';
 import { ScheduleGateway } from './gateway/schedule.gateway';
+import { GetSchedulesService } from './services/get-schedules.service';
 import { SyncSchedulesService } from './services/sync-schedules.service';
 
 @Module({
   controllers: [ScheduleController],
-  providers: [SyncSchedulesService, ScheduleGateway, ProviderGateway],
+  providers: [
+    SyncSchedulesService,
+    ScheduleGateway,
+    ProviderGateway,
+    GetSchedulesService,
+  ],
   imports: [
     AuthModule,
     MongooseModule.forFeature([

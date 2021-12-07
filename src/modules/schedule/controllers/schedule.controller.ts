@@ -1,11 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { GetSchedulesService } from '../services/get-schedules.service';
 import { SyncSchedulesModel } from '../services/models/sync-schedules.model';
 import { SyncSchedulesService } from '../services/sync-schedules.service';
 import { SyncSchedulesDto } from './dtos/sync-schedules.dto';
 
 @Controller('schedule')
 export class ScheduleController {
-  constructor(private readonly syncSchedules: SyncSchedulesService) {}
+  constructor(
+    private readonly syncSchedules: SyncSchedulesService,
+    private readonly getSchedulesAll: GetSchedulesService,
+  ) {}
 
   @Post('sync')
   async syncSchedulesWithSheets(@Body() dtoList: SyncSchedulesDto[]) {
@@ -22,5 +26,10 @@ export class ScheduleController {
           ),
       ),
     );
+  }
+
+  @Get()
+  async getSchedules() {
+    return await this.getSchedulesAll.execute();
   }
 }
