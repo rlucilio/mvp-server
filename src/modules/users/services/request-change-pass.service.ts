@@ -26,9 +26,11 @@ export class RequestChangePassService {
         bcrypt.hashSync(temporaryPass, SALT_OR_ROUNDS),
       );
 
-      await this.sendEmailService.execute(email, 'teste', 'change-pass', {
-        name: user.name,
+      await this.sendEmailService.execute(email, 'teste', 'basic-with-btn', {
         url: `${process.env.URL_FRONT}/auth/change-pass?token=${temporaryPass}&email=${email}`,
+        title: `Vamos resetar a sua senha ${user.name}`,
+        content: 'Click no botão abaixo para alterar a sua senha',
+        textLabel: 'Trocar senha',
       });
 
       this.logger.log('[END] request change pass');

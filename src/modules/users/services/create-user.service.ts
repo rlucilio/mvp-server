@@ -27,10 +27,10 @@ export class CreateUserService {
 
         if (
           isIn(model.specialty, [
-            'ENFERMEIRA',
-            'MEDICO',
-            'NUTRICIONISTA',
-            'EDUCADOR_FISICO',
+            'NURSE',
+            'DOCTOR',
+            'NUTRITIONIST',
+            'PHYSICAL_EDUCATOR',
           ])
         ) {
           await this.userGateway.createProvider(model);
@@ -42,10 +42,12 @@ export class CreateUserService {
       await this.sendEmailService.execute(
         model.email,
         'Confirmação de cadastro',
-        'confirmation',
+        'basic-with-btn',
         {
-          name: model.name,
           url: `${process.env.URL_FRONT}/auth/register-pass/${model.email}?user=${model.type}`,
+          title: `Bem-vindo ao MVP ${model.name}`,
+          content: 'Click no botão abaixo para criar seu usuário',
+          textLabel: 'Criar conta',
         },
       );
 

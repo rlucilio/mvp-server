@@ -9,7 +9,7 @@ export class GetSchedulesService {
     private readonly providerGateway: ProviderGateway,
   ) {}
 
-  async execute() {
+  async execute(specialty: string) {
     const result = await this.scheduleGateway.getAll();
     const response = [];
 
@@ -20,6 +20,7 @@ export class GetSchedulesService {
         cod: schedule.cod,
         room: schedule.room,
         dateTime: schedule.dateTime,
+        status: schedule.status,
         provider: {
           specialty: provider.provider.specialty,
           email: provider.user.email,
@@ -31,6 +32,12 @@ export class GetSchedulesService {
       });
     }
 
-    return response;
+    if (specialty !== 'ALL') {
+      return response.filter(
+        (schedule) => schedule.provider.specialty === specialty,
+      );
+    } else {
+      return response;
+    }
   }
 }

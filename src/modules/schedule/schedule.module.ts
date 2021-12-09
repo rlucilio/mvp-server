@@ -21,6 +21,7 @@ import { BenefitGateway } from '../benefit/gateways/benefit.gateway';
 import { ProviderGateway } from '../provider/gateways/provider.gateway';
 import { ScheduleController } from './controllers/schedule.controller';
 import { ScheduleGateway } from './gateway/schedule.gateway';
+import { CreateScheduleService } from './services/create-schedule.service';
 import { FindSchedulesService } from './services/find-schedules.service';
 import { GetSchedulesService } from './services/get-schedules.service';
 import { SyncSchedulesService } from './services/sync-schedules.service';
@@ -34,6 +35,7 @@ import { SyncSchedulesService } from './services/sync-schedules.service';
     GetSchedulesService,
     FindSchedulesService,
     BenefitGateway,
+    CreateScheduleService,
   ],
   imports: [
     AuthModule,

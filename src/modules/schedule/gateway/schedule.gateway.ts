@@ -48,4 +48,11 @@ export class ScheduleGateway {
   async findByEmailBenefit(benefit: Benefit) {
     return await this.scheduleDocument.find({ benefit });
   }
+
+  async createSchedule(benefit: Benefit, schedule: Schedule) {
+    return await this.scheduleDocument.findOneAndUpdate(
+      { cod: schedule.cod },
+      { benefit },
+    );
+  }
 }
