@@ -56,9 +56,10 @@ export class BenefitGateway {
     const user = await this.userDocument.findOne({ email });
 
     if (!user) throw new Error('Benefit not found');
+    const benefit = await this.benefitDocument.findOne({ user: user.id });
 
     return {
-      benefit: await this.benefitDocument.findOneAndUpdate({ user }),
+      benefit,
       user,
     };
   }

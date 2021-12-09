@@ -28,8 +28,8 @@ export class RequestChangePassService {
 
       await this.sendEmailService.execute(email, 'teste', 'basic-with-btn', {
         url: `${process.env.URL_FRONT}/auth/change-pass?token=${temporaryPass}&email=${email}`,
-        title: `Vamos resetar a sua senha ${user.name}`,
-        content: 'Click no botão abaixo para alterar a sua senha',
+        title: `Vamos resetar a sua senha`,
+        content: `${user.name}, Click no botão abaixo para alterar a sua senha`,
         textLabel: 'Trocar senha',
       });
 

@@ -45,8 +45,8 @@ export class CreateUserService {
         'basic-with-btn',
         {
           url: `${process.env.URL_FRONT}/auth/register-pass/${model.email}?user=${model.type}`,
-          title: `Bem-vindo ao MVP ${model.name}`,
-          content: 'Click no botão abaixo para criar seu usuário',
+          title: `Bem-vindo ao MVP`,
+          content: ` ${model.name}, Click no botão abaixo para criar seu usuário`,
           textLabel: 'Criar conta',
         },
       );
