@@ -35,11 +35,12 @@ export class GetSchedulesService {
     if (specialty !== 'ALL') {
       return response
         .filter((schedule) => schedule.provider.specialty === specialty)
+        .filter((schedule) => schedule.status === 'CRIADO')
         .filter((schedule) => schedule.provider.state === 'ACTIVATED');
     } else {
-      return response.filter(
-        (schedule) => schedule.provider.state === 'ACTIVATED',
-      );
+      return response
+        .filter((schedule) => schedule.status === 'CRIADO')
+        .filter((schedule) => schedule.provider.state === 'ACTIVATED');
     }
   }
 }
