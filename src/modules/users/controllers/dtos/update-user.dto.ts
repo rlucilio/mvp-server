@@ -34,6 +34,6 @@ export class UpdateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  @IsIn(['MALE', 'FEMALE', 'UNINFORMED'])
+  @IsIn(['Masculino', 'Feminino', 'Não informado'])
   gender: string;
 }

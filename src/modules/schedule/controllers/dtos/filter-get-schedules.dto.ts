@@ -1,6 +1,12 @@
 import { IsIn } from 'class-validator';
 
 export class FilterGetSchedulesDto {
-  @IsIn(['DOCTOR', 'NURSE', 'NUTRITIONIST', 'PHYSICAL_EDUCATOR', 'ALL'])
+  @IsIn([
+    'Médica(o)',
+    'Enfermeira(o)',
+    'Nutricionista',
+    'Educador físico',
+    'ALL',
+  ])
   specialty: string;
 }

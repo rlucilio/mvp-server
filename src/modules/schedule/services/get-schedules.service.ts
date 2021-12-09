@@ -21,6 +21,7 @@ export class GetSchedulesService {
         room: schedule.room,
         dateTime: schedule.dateTime,
         status: schedule.status,
+        updateDate: schedule.updateDate,
         provider: {
           specialty: provider.provider.specialty,
           email: provider.user.email,

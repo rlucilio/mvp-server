@@ -27,10 +27,10 @@ export class CreateUserService {
 
         if (
           isIn(model.specialty, [
-            'NURSE',
-            'DOCTOR',
-            'NUTRITIONIST',
-            'PHYSICAL_EDUCATOR',
+            'Enfermeira(o)',
+            'Médica(o)',
+            'Nutricionista',
+            'Educador físico',
           ])
         ) {
           await this.userGateway.createProvider(model);
