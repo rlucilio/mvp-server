@@ -33,11 +33,13 @@ export class GetSchedulesService {
     }
 
     if (specialty !== 'ALL') {
-      return response.filter(
-        (schedule) => schedule.provider.specialty === specialty,
-      );
+      return response
+        .filter((schedule) => schedule.provider.specialty === specialty)
+        .filter((schedule) => schedule.provider.state === 'ACTIVATED');
     } else {
-      return response;
+      return response.filter(
+        (schedule) => schedule.provider.state === 'ACTIVATED',
+      );
     }
   }
 }

@@ -1,8 +1,9 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
 import { ScheduleGateway } from '../gateway/schedule.gateway';
 import { CreateSchedulesModel } from './models/create-schedule.model';
 
+@Injectable()
 export class CreateScheduleService {
   constructor(
     private readonly scheduleGateway: ScheduleGateway,
