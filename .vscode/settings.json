@@ -4,7 +4,7 @@
   "mongoRunner": {
     "connections": [
       {
-        "name": "connection1",
+        "name": "Local",
         "url": "mongodb://localhost:27017/mvp"
       }
     ]
