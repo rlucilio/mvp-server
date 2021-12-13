@@ -54,4 +54,8 @@ export class TaskGateway {
   async findByType(type: TypeTasks) {
     return await this.taskDocument.find({ type });
   }
+
+  async findById(id: string) {
+    return await this.taskDocument.findById(id);
+  }
 }

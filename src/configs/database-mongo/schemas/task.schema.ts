@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type TaskDocument = Task | Document;
+export type TaskDocument = Task & Document;
 
 class Input {
   type: string;

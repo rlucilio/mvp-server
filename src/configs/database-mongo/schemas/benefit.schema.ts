@@ -12,10 +12,12 @@ export class Questions {
   answer: string;
 }
 
-export interface TasksBenefit {
+export class TasksBenefit {
   task: Task;
-  result: any;
-  expected: any;
+  result?: number | boolean;
+  expected: number | boolean;
+  date?: Date = new Date();
+  status: 'STARTED' | 'WAIT' | 'FINISH' = 'WAIT';
 }
 
 export class PlanBenefit {

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Benefit } from 'src/configs/database-mongo/schemas/benefit.schema';
 import {
   Provider,
   ProviderDocument,
@@ -54,11 +53,5 @@ export class ProviderGateway {
       provider,
       user: await this.userDocument.findById(provider.user),
     };
-  }
-
-  async linkBenefit(provider: Provider, benefit: Benefit) {
-    const benefits = provider.benefits ?? [];
-    benefits.push(benefit);
-    await this.providerDocument.findOneAndUpdate(provider, { benefits });
   }
 }

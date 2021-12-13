@@ -1,15 +1,20 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
+import { AddTaskInPlanService } from '../../services/add-task-in-plan/add-task-in-plan.service';
 import { CreateTaskService } from '../../services/create-task/create-task.service';
 import {
   CreateTasksModel,
   InputType,
   TypeTasks,
 } from '../../services/models/create-tasks.model';
+import { AddTaskInPlanDto } from './dto/add-task-in-plan.dto';
 import { CreateTasksDto } from './dto/create-tasks.dto';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly create: CreateTaskService) {}
+  constructor(
+    private readonly create: CreateTaskService,
+    private readonly addTask: AddTaskInPlanService,
+  ) {}
 
   @Post()
   async createTask(@Body() dto: CreateTasksDto) {
@@ -38,5 +43,10 @@ export class TasksController {
         },
       }),
     );
+  }
+
+  @Put('/add-task')
+  async addTaskInPlan(@Body() dto: AddTaskInPlanDto) {
+    await this.addTask.execute(dto.task, dto.email, dto.expected);
   }
 }

@@ -1,5 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { Document } from 'mongoose';
+import { Benefit } from 'src/configs/database-mongo/schemas/benefit.schema';
+import { Provider } from 'src/configs/database-mongo/schemas/provider.schema';
 import { SendEMailService } from 'src/core/email/services/send-email.service';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
 import { ProviderGateway } from 'src/modules/provider/gateways/provider.gateway';
@@ -36,11 +39,8 @@ export class CreateScheduleService {
       if (schedule.benefit !== null) {
         this.scheduleGateway.createSchedule(benefit.benefit, schedule);
         const provider = await this.providerGateway.findById(schedule.provider);
-        await this.providerGateway.linkBenefit(
-          provider.provider,
-          benefit.benefit,
-        );
-        await this.benefitGateway.startPlan(benefit.benefit);
+        await this.linkProvider(provider.provider, benefit.benefit);
+        await this.startPlan(benefit.benefit);
 
         await this.sendEmail.execute(
           provider.user.email,
@@ -69,5 +69,21 @@ export class CreateScheduleService {
         HttpStatus.NOT_FOUND,
       );
     }
+  }
+
+  async startPlan(benefit: Benefit & Document) {
+    await benefit.update({
+      plan: {
+        beginDate: new Date(),
+        tasks: [],
+        endDate: null,
+      },
+    });
+  }
+
+  async linkProvider(provider: Provider & Document, benefit: Benefit) {
+    const benefits = provider.benefits ?? [];
+    benefits.push(benefit);
+    await provider.update({ benefits });
   }
 }
