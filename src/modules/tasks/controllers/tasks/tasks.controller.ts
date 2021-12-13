@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Put, Query } from '@nestjs/common';
 import { AddTaskInPlanService } from '../../services/add-task-in-plan/add-task-in-plan.service';
 import { CreateTaskService } from '../../services/create-task/create-task.service';
 import {
@@ -6,14 +6,17 @@ import {
   InputType,
   TypeTasks,
 } from '../../services/models/create-tasks.model';
+import { RemoveTaskInPlanService } from '../../services/remove-task-in-plan/remove-task-in-plan.service';
 import { AddTaskInPlanDto } from './dto/add-task-in-plan.dto';
 import { CreateTasksDto } from './dto/create-tasks.dto';
+import { RemoveTaskDto } from './dto/remove-task.dto';
 
 @Controller('tasks')
 export class TasksController {
   constructor(
     private readonly create: CreateTaskService,
     private readonly addTask: AddTaskInPlanService,
+    private readonly removeTask: RemoveTaskInPlanService,
   ) {}
 
   @Post()
@@ -45,8 +48,13 @@ export class TasksController {
     );
   }
 
-  @Put('/add-task')
+  @Put('/plan/task')
   async addTaskInPlan(@Body() dto: AddTaskInPlanDto) {
     await this.addTask.execute(dto.task, dto.email, dto.expected);
+  }
+
+  @Delete('/plan/task')
+  async removeTaskInPlan(@Query() dto: RemoveTaskDto) {
+    await this.removeTask.execute(dto.task, dto.email);
   }
 }
