@@ -12,9 +12,11 @@ import { FindBenefitService } from '../services/find-benefit.service';
 import { QuestionsModel } from '../services/models/questions.model';
 import { UpdateBenefitModel } from '../services/models/update-benefit.model';
 import { SetAnswerFormService } from '../services/set-answer-form.service';
+import { SetEmotionalService } from '../services/set-emotional/set-emotional.service';
 import { UpdateBenefitService } from '../services/update-benefit.service';
 import { FindBenefitDto } from './dtos/find-benefit.dto';
 import { QuestionsDto } from './dtos/questions.dto';
+import { SetEmotionalDto } from './dtos/set-emotional.dto';
 import { UpdateBenefitDto } from './dtos/update-benefit.dto';
 
 @Controller('benefit')
@@ -23,6 +25,7 @@ export class BenefitController {
     private readonly updateBenefitService: UpdateBenefitService,
     private readonly setAsw: SetAnswerFormService,
     private readonly findBenefit: FindBenefitService,
+    private readonly setEmotional: SetEmotionalService,
   ) {}
 
   @Put('/update')
@@ -41,5 +44,10 @@ export class BenefitController {
   @Get('/find')
   async verifyAswForm(@Query() dto: FindBenefitDto) {
     return this.findBenefit.execute(dto.email);
+  }
+
+  @Put('/emotional')
+  async updateEmotional(@Query() dto: SetEmotionalDto) {
+    await this.setEmotional.execute(dto.email, dto.nps);
   }
 }

@@ -14,6 +14,7 @@ import { BenefitGateway } from './gateways/benefit.gateway';
 import { FindBenefitService } from './services/find-benefit.service';
 import { SetAnswerFormService } from './services/set-answer-form.service';
 import { UpdateBenefitService } from './services/update-benefit.service';
+import { SetEmotionalService } from './services/set-emotional/set-emotional.service';
 
 @Module({
   providers: [
@@ -21,6 +22,7 @@ import { UpdateBenefitService } from './services/update-benefit.service';
     BenefitGateway,
     SetAnswerFormService,
     FindBenefitService,
+    SetEmotionalService,
   ],
   controllers: [BenefitController],
   imports: [
