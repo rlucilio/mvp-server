@@ -4,11 +4,24 @@ import * as mongoose from 'mongoose';
 import { User } from './user.schema';
 import { BenefitBody } from './models/benefit-body';
 import { BenefitEmotional } from './models/benefit-emotional';
+import { Task } from './task.schema';
 
 export type BenefitDocument = Benefit & Document;
-class Questions {
+export class Questions {
   question: string;
   answer: string;
+}
+
+export interface TasksBenefit {
+  task: Task;
+  result: any;
+  expected: any;
+}
+
+export class PlanBenefit {
+  tasks: TasksBenefit[];
+  beginDate: Date | null;
+  endDate: Date;
 }
 
 @Schema()
@@ -39,10 +52,10 @@ export class Benefit {
   answeredForm: boolean;
 
   @Prop({ type: Questions })
-  questions: {
-    question: string;
-    answer: string;
-  }[];
+  questions: Questions[];
+
+  @Prop({ type: PlanBenefit })
+  plan: PlanBenefit;
 }
 
 export const BenefitSchema = SchemaFactory.createForClass(Benefit);

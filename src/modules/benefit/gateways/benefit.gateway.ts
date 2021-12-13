@@ -63,4 +63,14 @@ export class BenefitGateway {
       user,
     };
   }
+
+  async startPlan(benefit: Benefit) {
+    await this.benefitDocument.findOneAndUpdate(benefit, {
+      plan: {
+        beginDate: new Date(),
+        tasks: [],
+        endDate: null,
+      },
+    });
+  }
 }

@@ -23,6 +23,7 @@ export class FindBenefitService {
         gender: result.user.gender,
         name: result.user.name,
         phone: result.user.phone,
+        plan: result.benefit.plan,
       };
     } catch (error) {
       this.logger.log('[END] find benefit');

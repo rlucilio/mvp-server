@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from './user.schema';
+import { Benefit } from './benefit.schema';
 
 export type ProviderDocument = Provider & Document;
 
@@ -25,6 +26,9 @@ export class Provider {
 
   @Prop({ type: Date, default: new Date() })
   updateDate: Date;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Benefit.name })
+  benefits: Benefit[];
 }
 
 export const ProvideSchema = SchemaFactory.createForClass(Provider);

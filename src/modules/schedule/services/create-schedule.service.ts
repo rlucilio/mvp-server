@@ -36,6 +36,11 @@ export class CreateScheduleService {
       if (schedule.benefit !== null) {
         this.scheduleGateway.createSchedule(benefit.benefit, schedule);
         const provider = await this.providerGateway.findById(schedule.provider);
+        await this.providerGateway.linkBenefit(
+          provider.provider,
+          benefit.benefit,
+        );
+        await this.benefitGateway.startPlan(benefit.benefit);
 
         await this.sendEmail.execute(
           provider.user.email,
