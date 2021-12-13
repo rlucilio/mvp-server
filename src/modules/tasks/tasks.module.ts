@@ -18,6 +18,7 @@ import {
 } from 'src/configs/database-mongo/schemas/user.schema';
 import { BenefitGateway } from '../benefit/gateways/benefit.gateway';
 import { RemoveTaskInPlanService } from './services/remove-task-in-plan/remove-task-in-plan.service';
+import { UpdateTaskInPlanService } from './services/update-task-in-plan/update-task-in-plan.service';
 
 @Module({
   controllers: [TasksController],
@@ -28,6 +29,7 @@ import { RemoveTaskInPlanService } from './services/remove-task-in-plan/remove-t
     TaskGateway,
     BenefitGateway,
     RemoveTaskInPlanService,
+    UpdateTaskInPlanService,
   ],
   imports: [
     MongooseModule.forFeature([

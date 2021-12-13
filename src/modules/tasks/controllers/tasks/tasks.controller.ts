@@ -7,9 +7,11 @@ import {
   TypeTasks,
 } from '../../services/models/create-tasks.model';
 import { RemoveTaskInPlanService } from '../../services/remove-task-in-plan/remove-task-in-plan.service';
+import { UpdateTaskInPlanService } from '../../services/update-task-in-plan/update-task-in-plan.service';
 import { AddTaskInPlanDto } from './dto/add-task-in-plan.dto';
 import { CreateTasksDto } from './dto/create-tasks.dto';
 import { RemoveTaskDto } from './dto/remove-task.dto';
+import { UpdateTaskResultDto } from './dto/update-task-result.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -17,6 +19,7 @@ export class TasksController {
     private readonly create: CreateTaskService,
     private readonly addTask: AddTaskInPlanService,
     private readonly removeTask: RemoveTaskInPlanService,
+    private readonly updateTaskInPlan: UpdateTaskInPlanService,
   ) {}
 
   @Post()
@@ -48,7 +51,7 @@ export class TasksController {
     );
   }
 
-  @Put('/plan/task')
+  @Post('/plan/task')
   async addTaskInPlan(@Body() dto: AddTaskInPlanDto) {
     await this.addTask.execute(dto.task, dto.email, dto.expected);
   }
@@ -56,5 +59,10 @@ export class TasksController {
   @Delete('/plan/task')
   async removeTaskInPlan(@Query() dto: RemoveTaskDto) {
     await this.removeTask.execute(dto.task, dto.email);
+  }
+
+  @Put('/plan/task')
+  async updateTask(@Body() dto: UpdateTaskResultDto) {
+    await this.updateTaskInPlan.execute(dto.task, dto.email, dto.value);
   }
 }
