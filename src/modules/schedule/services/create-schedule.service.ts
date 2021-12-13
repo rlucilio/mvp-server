@@ -19,6 +19,19 @@ export class CreateScheduleService {
     const benefit = await this.benefitGateway.getBenefitByEmail(model.email);
 
     const schedule = await this.scheduleGateway.findByCod(model.cod);
+    const allSchedulesByBenefit = await this.scheduleGateway.findByEmailBenefit(
+      benefit.benefit,
+    );
+
+    const scheduleInvalid = allSchedulesByBenefit.find(
+      (currSchedule) =>
+        schedule.dateTime.split(' ')[0] === currSchedule.dateTime.split(' ')[0],
+    );
+
+    if (scheduleInvalid) {
+      throw new HttpException('Other schedule in date', HttpStatus.CONFLICT);
+    }
+
     if (benefit && schedule) {
       if (schedule.benefit !== null) {
         this.scheduleGateway.createSchedule(benefit.benefit, schedule);
