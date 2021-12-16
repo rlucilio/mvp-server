@@ -1,4 +1,4 @@
-import { IsEmail, IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 
 export class AddTaskInPlanDto {
   @IsNotEmpty()
@@ -11,4 +11,8 @@ export class AddTaskInPlanDto {
 
   @IsNotEmpty()
   expected: number | boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  date: string;
 }

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { TaskGateway } from '../../gateways/task.gateway';
-import { CreateTasksModel } from '../models/create-tasks.model';
+import { TaskGateway } from '../gateways/task.gateway';
+import { CreateTasksModel } from './models/create-tasks.model';
 
 @Injectable()
 export class CreateTaskService {

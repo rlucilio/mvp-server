@@ -16,14 +16,14 @@ export class TasksBenefit {
   task: Task;
   result?: number | boolean;
   expected: number | boolean;
-  date?: Date = new Date();
+  date: string;
   status: 'STARTED' | 'WAIT' | 'FINISH' = 'WAIT';
 }
 
 export class PlanBenefit {
   tasks: TasksBenefit[];
-  beginDate: Date | null;
-  endDate: Date;
+  beginDate: string;
+  endDate: string;
 }
 
 @Schema()

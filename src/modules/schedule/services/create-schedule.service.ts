@@ -40,7 +40,6 @@ export class CreateScheduleService {
         this.scheduleGateway.createSchedule(benefit.benefit, schedule);
         const provider = await this.providerGateway.findById(schedule.provider);
         await this.linkProvider(provider.provider, benefit.benefit);
-        await this.startPlan(benefit.benefit);
 
         await this.sendEmail.execute(
           provider.user.email,
@@ -69,16 +68,6 @@ export class CreateScheduleService {
         HttpStatus.NOT_FOUND,
       );
     }
-  }
-
-  async startPlan(benefit: Benefit & Document) {
-    await benefit.update({
-      plan: {
-        beginDate: new Date(),
-        tasks: [],
-        endDate: null,
-      },
-    });
   }
 
   async linkProvider(provider: Provider & Document, benefit: Benefit) {
