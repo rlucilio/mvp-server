@@ -16,7 +16,8 @@ export class TasksBenefit {
   task: Task;
   result?: number | boolean;
   expected: number | boolean;
-  date: string;
+  dateExpected: string;
+  updateDate: Date;
   status: 'STARTED' | 'WAIT' | 'FINISH' = 'WAIT';
 }
 

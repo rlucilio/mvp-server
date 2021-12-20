@@ -6,6 +6,10 @@ import {
   BenefitDocument,
 } from 'src/configs/database-mongo/schemas/benefit.schema';
 import {
+  Task,
+  TaskDocument,
+} from 'src/configs/database-mongo/schemas/task.schema';
+import {
   User,
   UserDocument,
 } from 'src/configs/database-mongo/schemas/user.schema';
@@ -17,6 +21,7 @@ export class BenefitGateway {
   constructor(
     @InjectModel(User.name) private userDocument: Model<UserDocument>,
     @InjectModel(Benefit.name) private benefitDocument: Model<BenefitDocument>,
+    @InjectModel(Task.name) private taskDocument: Model<TaskDocument>,
   ) {}
 
   async updateBenefit(email: string, benefitModel: UpdateBenefitModel) {
@@ -57,6 +62,13 @@ export class BenefitGateway {
 
     if (!user) throw new Error('Benefit not found');
     const benefit = await this.benefitDocument.findOne({ user: user.id });
+    if (benefit.plan) {
+      const tasks = await benefit.plan.tasks.map(
+        async (task) => await this.taskDocument.findById(task),
+      );
+
+      benefit.plan.tasks = tasks as any;
+    }
 
     return {
       benefit,

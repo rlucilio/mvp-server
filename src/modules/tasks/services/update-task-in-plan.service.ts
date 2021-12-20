@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Document } from 'mongoose';
 import { TasksBenefit } from 'src/configs/database-mongo/schemas/benefit.schema';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
@@ -21,16 +21,31 @@ export class UpdateTaskInPlanService {
       );
       if (taskIndex) throw new Error('Not found task');
 
-      const taskBenefit: TasksBenefit = benefit.plan.tasks[idTask];
+      const taskBenefit: TasksBenefit = benefit.plan.tasks[taskIndex];
 
       taskBenefit.result = value;
       taskBenefit.status =
         value === taskBenefit.expected ? 'FINISH' : 'STARTED';
-      taskBenefit.date = moment(new Date()).format('DD/MM/YYYY');
+      taskBenefit.updateDate = new Date();
 
-      benefit.plan.tasks[idTask] = taskBenefit;
+      benefit.plan.tasks[taskIndex] = taskBenefit;
+
+      const now = moment(new Date());
+      const lastWeek = moment(new Date()).subtract(1, 'week');
 
       await benefit.update();
+      if (benefit.emotional[benefit.emotional.length - 1]) {
+        const lastFeedBack = moment(
+          benefit.emotional[benefit.emotional.length - 1].insertDate,
+        );
+        if (lastFeedBack.isBetween(lastWeek, now)) {
+          return { needFeedBack: false };
+        } else {
+          return { needFeedBack: true };
+        }
+      } else {
+        return { needFeedBack: true };
+      }
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

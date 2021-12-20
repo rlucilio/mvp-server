@@ -41,7 +41,7 @@ export class TaskGateway {
           : null,
         gain: {
           label: model.input.gain.label,
-          value: model.input.gain.value,
+          value: model.input.gain.label2,
         },
       },
     });

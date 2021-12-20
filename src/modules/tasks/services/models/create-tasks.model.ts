@@ -30,7 +30,7 @@ export class CreateTasksModel {
       } | null;
       gain: {
         label: string;
-        value: number;
+        label2: string;
       } | null;
     },
   ) {}

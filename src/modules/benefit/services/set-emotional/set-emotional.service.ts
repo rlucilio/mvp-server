@@ -12,7 +12,11 @@ export class SetEmotionalService {
       if (!benefit.benefit) throw new Error('Benefit not found');
 
       const emotionalList = benefit.benefit.emotional ?? [];
-      emotionalList.push({ npsEmotional: nps });
+      emotionalList.push({
+        npsEmotional: nps,
+        insertDate: new Date(),
+        updateDate: new Date(),
+      });
       benefit.benefit.emotional = emotionalList;
       benefit.benefit.update();
     } catch (error) {

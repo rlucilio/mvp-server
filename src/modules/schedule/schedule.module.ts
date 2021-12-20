@@ -13,6 +13,10 @@ import {
   ScheduleSchema,
 } from 'src/configs/database-mongo/schemas/schedule.schema';
 import {
+  Task,
+  TaskSchema,
+} from 'src/configs/database-mongo/schemas/task.schema';
+import {
   User,
   UserSchema,
 } from 'src/configs/database-mongo/schemas/user.schema';
@@ -44,6 +48,7 @@ import { SyncSchedulesService } from './services/sync-schedules.service';
       { name: User.name, schema: UserSchema },
       { name: Schedule.name, schema: ScheduleSchema },
       { name: Benefit.name, schema: BenefitSchema },
+      { name: Task.name, schema: TaskSchema },
     ]),
   ],
 })

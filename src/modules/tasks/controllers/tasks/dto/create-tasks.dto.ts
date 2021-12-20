@@ -70,7 +70,7 @@ export class CreateTasksDto {
 
   @IsNumber()
   @IsNotEmpty()
-  gainInValue: number;
+  gainLabel2: string;
 
   @IsString()
   @IsNotEmpty()

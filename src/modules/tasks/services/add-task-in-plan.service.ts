@@ -44,7 +44,8 @@ export class AddTaskInPlanService {
           task: task,
           expected: newTask.expected,
           status: 'WAIT',
-          date: newTask.date,
+          dateExpected: newTask.date,
+          updateDate: new Date(),
         });
       }
       await benefit.update();

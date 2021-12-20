@@ -15,6 +15,10 @@ import { FindBenefitService } from './services/find-benefit.service';
 import { SetAnswerFormService } from './services/set-answer-form.service';
 import { UpdateBenefitService } from './services/update-benefit.service';
 import { SetEmotionalService } from './services/set-emotional/set-emotional.service';
+import {
+  Task,
+  TaskSchema,
+} from 'src/configs/database-mongo/schemas/task.schema';
 
 @Module({
   providers: [
@@ -30,6 +34,7 @@ import { SetEmotionalService } from './services/set-emotional/set-emotional.serv
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Benefit.name, schema: BenefitSchema },
+      { name: Task.name, schema: TaskSchema },
     ]),
   ],
 })

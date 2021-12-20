@@ -48,7 +48,7 @@ export class TasksController {
           : null,
         gain: {
           label: dto.gainLabel,
-          value: dto.gainInValue,
+          label2: dto.gainLabel2,
         },
       }),
     );
@@ -73,7 +73,7 @@ export class TasksController {
 
   @Put('/plan/task')
   async updateTask(@Body() dto: UpdateTaskResultDto) {
-    await this.updateTaskInPlan.execute(dto.task, dto.email, dto.value);
+    return await this.updateTaskInPlan.execute(dto.task, dto.email, dto.value);
   }
 
   @Post('/plan')

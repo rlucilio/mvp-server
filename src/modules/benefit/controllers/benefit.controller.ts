@@ -47,7 +47,7 @@ export class BenefitController {
   }
 
   @Put('/emotional')
-  async updateEmotional(@Query() dto: SetEmotionalDto) {
+  async updateEmotional(@Body() dto: SetEmotionalDto) {
     await this.setEmotional.execute(dto.email, dto.nps);
   }
 }
