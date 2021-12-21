@@ -1,6 +1,15 @@
-import { Body, Controller, Delete, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { AddTaskInPlanService } from '../../services/add-task-in-plan.service';
 import { CreateTaskService } from '../../services/create-task.service';
+import { GetTasksService } from '../../services/get-tasks.service';
 import {
   CreateTasksModel,
   InputType,
@@ -23,6 +32,7 @@ export class TasksController {
     private readonly removeTask: RemoveTaskInPlanService,
     private readonly updateTaskInPlan: UpdateTaskInPlanService,
     private readonly startPlanService: StartPlanService,
+    private readonly getTask: GetTasksService,
   ) {}
 
   @Post()
@@ -79,5 +89,10 @@ export class TasksController {
   @Post('/plan')
   async startPlan(@Body() dto: StartPlanDto) {
     await this.startPlanService.execute(dto.email, dto.startDate, dto.endDate);
+  }
+
+  @Get('')
+  async getAllTasks() {
+    return await this.getTask.execute();
   }
 }

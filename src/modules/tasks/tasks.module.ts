@@ -20,6 +20,7 @@ import { BenefitGateway } from '../benefit/gateways/benefit.gateway';
 import { RemoveTaskInPlanService } from './services/remove-task-in-plan.service';
 import { UpdateTaskInPlanService } from './services/update-task-in-plan.service';
 import { StartPlanService } from './services/start-plan.service';
+import { GetTasksService } from './services/get-tasks.service';
 
 @Module({
   controllers: [TasksController],
@@ -32,6 +33,7 @@ import { StartPlanService } from './services/start-plan.service';
     RemoveTaskInPlanService,
     UpdateTaskInPlanService,
     StartPlanService,
+    GetTasksService,
   ],
   imports: [
     MongooseModule.forFeature([

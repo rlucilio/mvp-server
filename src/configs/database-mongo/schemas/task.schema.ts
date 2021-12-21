@@ -19,7 +19,7 @@ class Input {
   };
   gain: {
     label: string;
-    value: number;
+    label2: number;
   };
 }
 
