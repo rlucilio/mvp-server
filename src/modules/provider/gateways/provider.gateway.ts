@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
+  Benefit,
+  BenefitDocument,
+} from 'src/configs/database-mongo/schemas/benefit.schema';
+import {
   Provider,
   ProviderDocument,
 } from 'src/configs/database-mongo/schemas/provider.schema';
@@ -17,6 +21,7 @@ export class ProviderGateway {
     @InjectModel(User.name) private userDocument: Model<UserDocument>,
     @InjectModel(Provider.name)
     private providerDocument: Model<ProviderDocument>,
+    @InjectModel(Benefit.name) private benefitDocument: Model<BenefitDocument>,
   ) {}
 
   async updateProvider(email: string, benefitModel: UpdateProviderModel) {
@@ -40,8 +45,18 @@ export class ProviderGateway {
       })
       .exec();
 
+    const provider = await this.providerDocument.findOne({ user });
+
+    if (provider.benefits) {
+      const benefits = await provider.benefits
+        .map(async (benefit) => await this.benefitDocument.findById(benefit))
+        .map(async (benefit) => await (await benefit).populate('user'));
+
+      provider.benefits = benefits as any;
+    }
+
     return {
-      provider: await this.providerDocument.findOne({ user }),
+      provider,
       user,
     };
   }

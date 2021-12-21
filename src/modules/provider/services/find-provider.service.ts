@@ -22,6 +22,7 @@ export class FindProviderService {
         urlPhoto: result.user.urlPhoto,
         phone: result.user.phone,
         gender: result.user.gender,
+        benefits: result.provider.benefits,
       };
     } catch (error) {
       this.logger.warn(error.message);

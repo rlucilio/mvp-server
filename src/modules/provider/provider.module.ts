@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
+  Benefit,
+  BenefitSchema,
+} from 'src/configs/database-mongo/schemas/benefit.schema';
+import {
   Provider,
   ProvideSchema,
 } from 'src/configs/database-mongo/schemas/provider.schema';
@@ -22,6 +26,7 @@ import { UpdateProviderService } from './services/update-provider.service';
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Provider.name, schema: ProvideSchema },
+      { name: Benefit.name, schema: BenefitSchema },
     ]),
   ],
 })
