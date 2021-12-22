@@ -20,10 +20,12 @@ export class StartPlanService {
         throw new Error('Benefit not found');
       }
 
+      const tasks = benefit?.plan?.tasks || [];
+
       await benefit.update({
         plan: {
           beginDate: startDate,
-          tasks: [],
+          tasks,
           endDate: endDate,
         },
       });
