@@ -12,18 +12,29 @@ export class Questions {
   answer: string;
 }
 
+@Schema()
 export class TasksBenefit {
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Task.name })
   task: Task;
+  @Prop({ type: 'Number' })
   result?: number | boolean;
+  @Prop({ type: 'Number' })
   expected: number | boolean;
+  @Prop()
   dateExpected: string;
+  @Prop()
   updateDate: Date;
+  @Prop()
   status: 'STARTED' | 'WAIT' | 'FINISH' = 'WAIT';
 }
 
+@Schema()
 export class PlanBenefit {
+  @Prop({ Type: TasksBenefit })
   tasks: TasksBenefit[];
+  @Prop()
   beginDate: string;
+  @Prop({})
   endDate: string;
 }
 

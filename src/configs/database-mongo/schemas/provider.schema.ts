@@ -27,7 +27,7 @@ export class Provider {
   @Prop({ type: Date, default: new Date() })
   updateDate: Date;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Benefit.name })
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Benefit.name })
   benefits: Benefit[];
 }
 

@@ -13,16 +13,16 @@ export class FindProviderService {
       const result = await this.providerGateway.findProvider(email);
 
       this.logger.log('[END] Find provider');
+      const benefits = result.provider.toObject().benefits
+        ? result.provider
+            .toObject()
+            .benefits.map((benefit) => ({ ...benefit, ...benefit.user }))
+        : [];
+
       return {
-        name: result.user.name,
-        specialty: result.provider.specialty,
-        bio: result.provider.bio,
-        email: result.user.email,
-        state: result.user.state,
-        urlPhoto: result.user.urlPhoto,
-        phone: result.user.phone,
-        gender: result.user.gender,
-        benefits: result.provider.benefits,
+        ...result.user.toObject(),
+        ...result.provider.toObject(),
+        benefits,
       };
     } catch (error) {
       this.logger.warn(error.message);

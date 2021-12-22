@@ -61,13 +61,17 @@ export class BenefitGateway {
     const user = await this.userDocument.findOne({ email });
 
     if (!user) throw new Error('Benefit not found');
-    const benefit = await this.benefitDocument.findOne({ user: user.id });
-    if (benefit.plan) {
-      const tasks = await benefit.plan.tasks.map(
-        async (task) => await this.taskDocument.findById(task),
-      );
+    const benefit = await this.benefitDocument
+      .findOne({ user: user.id })
+      .populate({ path: 'plan', populate: 'tasks' })
+      .exec();
 
-      benefit.plan.tasks = tasks as any;
+    const tasks = [];
+    if (benefit?.plan?.tasks) {
+      for await (const task of benefit.plan.tasks) {
+        tasks.push(task);
+      }
+      benefit.plan.tasks = tasks;
     }
 
     return {

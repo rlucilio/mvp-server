@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import moment from 'moment';
+import * as moment from 'moment';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class StartPlanService {
         throw new Error('Start date can not be after date');
       }
 
-      if (benefit) {
+      if (!benefit) {
         throw new Error('Benefit not found');
       }
 

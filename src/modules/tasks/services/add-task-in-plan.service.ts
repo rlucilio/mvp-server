@@ -38,7 +38,7 @@ export class AddTaskInPlanService {
         if (!benefit?.plan) throw new Error('Non-initiated plan');
 
         const task = await this.taskGateway.findById(newTask.idTask);
-        if (task) throw new Error('Not found task');
+        if (!task) throw new Error('Not found task');
 
         benefit.plan.tasks.push({
           task: task,
@@ -48,7 +48,9 @@ export class AddTaskInPlanService {
           updateDate: new Date(),
         });
       }
-      await benefit.update();
+      await benefit.update({
+        plan: { ...benefit.plan, tasks: benefit.plan.tasks },
+      });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

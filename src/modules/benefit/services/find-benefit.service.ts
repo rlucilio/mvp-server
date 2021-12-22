@@ -12,22 +12,12 @@ export class FindBenefitService {
       const result = await this.benefitGateway.getBenefitByEmail(email);
 
       return {
-        answeredForm: result.benefit.answeredForm,
-        id: result.benefit.id,
-        birthDate: result.benefit.birthDate,
-        body: result.benefit.body,
-        emotional: result.benefit.emotional,
-        questions: result.benefit.questions,
-        email: result.user.email,
-        urlPhoto: result.user.urlPhoto,
-        gender: result.user.gender,
-        name: result.user.name,
-        phone: result.user.phone,
-        plan: result.benefit.plan,
+        ...result.benefit.toObject(),
+        ...result.user.toObject(),
       };
     } catch (error) {
       this.logger.log('[END] find benefit');
-      throw new HttpException('Benefit find benefit', HttpStatus.NOT_FOUND);
+      throw new HttpException('Error find benefit', HttpStatus.NOT_FOUND);
     }
   }
 }

@@ -68,7 +68,7 @@ export class CreateTasksDto {
   @IsObject()
   inputCount: InputCount;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   gainLabel2: string;
 

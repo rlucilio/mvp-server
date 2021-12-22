@@ -70,9 +70,19 @@ export class CreateScheduleService {
     }
   }
 
-  async linkProvider(provider: Provider & Document, benefit: Benefit) {
-    const benefits = provider.benefits ?? [];
-    benefits.push(benefit);
-    await provider.update({ benefits });
+  async linkProvider(
+    provider: Provider & Document,
+    benefit: Benefit & Document,
+  ) {
+    if (provider.benefits) {
+      const benefitExist = provider.benefits.find(
+        (ben: Benefit & Document) => ben._id === benefit._id,
+      );
+      if (!benefitExist) {
+        await provider.update({ benefits: [...provider.benefits, benefit] });
+      }
+    } else {
+      await provider.update({ benefits: [benefit._id] });
+    }
   }
 }

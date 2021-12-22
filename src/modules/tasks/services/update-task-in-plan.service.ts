@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import moment from 'moment';
+import * as moment from 'moment';
 import { Document } from 'mongoose';
 import { TasksBenefit } from 'src/configs/database-mongo/schemas/benefit.schema';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
@@ -17,9 +17,11 @@ export class UpdateTaskInPlanService {
       if (!benefit?.plan) throw new Error('Non-initiated plan');
 
       const taskIndex = await benefit?.plan.tasks.findIndex(
-        (task) => (task.task as unknown as Document)._id === idTask,
+        (task) =>
+          (task.task as unknown as Document)._id.equals(idTask) &&
+          task.status === 'WAIT',
       );
-      if (taskIndex) throw new Error('Not found task');
+      if (taskIndex < 0) throw new Error('Not found task');
 
       const taskBenefit: TasksBenefit = benefit.plan.tasks[taskIndex];
 
@@ -28,13 +30,14 @@ export class UpdateTaskInPlanService {
         value === taskBenefit.expected ? 'FINISH' : 'STARTED';
       taskBenefit.updateDate = new Date();
 
-      benefit.plan.tasks[taskIndex] = taskBenefit;
-
       const now = moment(new Date());
       const lastWeek = moment(new Date()).subtract(1, 'week');
+      await benefit.update({ plan: benefit?.plan });
 
-      await benefit.update();
-      if (benefit.emotional[benefit.emotional.length - 1]) {
+      if (
+        benefit?.emotional &&
+        benefit.emotional[benefit.emotional.length - 1]
+      ) {
         const lastFeedBack = moment(
           benefit.emotional[benefit.emotional.length - 1].insertDate,
         );
@@ -47,6 +50,7 @@ export class UpdateTaskInPlanService {
         return { needFeedBack: true };
       }
     } catch (error) {
+      console.log(error);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }

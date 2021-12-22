@@ -18,7 +18,7 @@ export class SetEmotionalService {
         updateDate: new Date(),
       });
       benefit.benefit.emotional = emotionalList;
-      benefit.benefit.update();
+      await benefit.benefit.update({ emotional: emotionalList });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

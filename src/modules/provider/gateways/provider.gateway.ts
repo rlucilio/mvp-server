@@ -45,15 +45,10 @@ export class ProviderGateway {
       })
       .exec();
 
-    const provider = await this.providerDocument.findOne({ user });
-
-    if (provider.benefits) {
-      const benefits = await provider.benefits
-        .map(async (benefit) => await this.benefitDocument.findById(benefit))
-        .map(async (benefit) => await (await benefit).populate('user'));
-
-      provider.benefits = benefits as any;
-    }
+    const provider = await this.providerDocument
+      .findOne({ user })
+      .populate({ path: 'benefits', populate: { path: 'user' } })
+      .exec();
 
     return {
       provider,

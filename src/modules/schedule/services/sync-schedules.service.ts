@@ -27,7 +27,9 @@ export class SyncSchedulesService {
             await this.scheduleGateway.add(model, resultProvider.provider);
           }
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 }

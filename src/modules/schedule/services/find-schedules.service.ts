@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Provider } from 'src/configs/database-mongo/schemas/provider.schema';
 import { Schedule } from 'src/configs/database-mongo/schemas/schedule.schema';
 import { BenefitGateway } from 'src/modules/benefit/gateways/benefit.gateway';
@@ -14,18 +14,23 @@ export class FindSchedulesService {
   ) {}
 
   async execute(email: string) {
-    const benefit = await this.benefitGateway.getBenefitByEmail(email);
+    try {
+      const benefit = await this.benefitGateway.getBenefitByEmail(email);
 
-    const response: { schedule: Schedule; provider: Provider }[] = [];
-    const schedules = await this.scheduleGateway.findByEmailBenefit(
-      benefit.benefit,
-    );
+      const response: { schedule: Schedule; provider: Provider }[] = [];
+      const schedules = await this.scheduleGateway.findByEmailBenefit(
+        benefit.benefit,
+      );
 
-    for await (const schedule of schedules) {
-      const provider = await this.providerGateway.findById(schedule.provider);
-      response.push({ schedule: schedule, provider: provider.provider });
+      for await (const schedule of schedules) {
+        const provider = await this.providerGateway.findById(schedule.provider);
+        response.push({ schedule: schedule, provider: provider.provider });
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Error in get schedules', HttpStatus.BAD_REQUEST);
     }
-
-    return response;
   }
 }
